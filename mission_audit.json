@@ -1,0 +1,322 @@
+[
+  {
+    "id": 1,
+    "given_solution_steps": 19,
+    "shortest_valid_steps": 19,
+    "samples": [
+      41,
+      18,
+      2
+    ],
+    "hazards": 13,
+    "given_solution_valid": true,
+    "bfs_path_exists": true,
+    "overlaps": [],
+    "result": "ผ่านได้จริง",
+    "note": "ผ่านได้จริง"
+  },
+  {
+    "id": 2,
+    "given_solution_steps": 19,
+    "shortest_valid_steps": 19,
+    "samples": [
+      2,
+      25,
+      35
+    ],
+    "hazards": 14,
+    "given_solution_valid": true,
+    "bfs_path_exists": true,
+    "overlaps": [],
+    "result": "ผ่านได้จริง",
+    "note": "ผ่านได้จริง"
+  },
+  {
+    "id": 3,
+    "given_solution_steps": 20,
+    "shortest_valid_steps": 20,
+    "samples": [
+      12,
+      35,
+      30
+    ],
+    "hazards": 15,
+    "given_solution_valid": true,
+    "bfs_path_exists": true,
+    "overlaps": [],
+    "result": "ผ่านได้จริง",
+    "note": "ผ่านได้จริง"
+  },
+  {
+    "id": 4,
+    "given_solution_steps": 20,
+    "shortest_valid_steps": 20,
+    "samples": [
+      6,
+      33,
+      16
+    ],
+    "hazards": 12,
+    "given_solution_valid": true,
+    "bfs_path_exists": true,
+    "overlaps": [],
+    "result": "ผ่านได้จริง",
+    "note": "ผ่านได้จริง"
+  },
+  {
+    "id": 5,
+    "given_solution_steps": 16,
+    "shortest_valid_steps": 16,
+    "samples": [
+      20,
+      10,
+      6
+    ],
+    "hazards": 13,
+    "given_solution_valid": true,
+    "bfs_path_exists": true,
+    "overlaps": [],
+    "result": "ผ่านได้จริง",
+    "note": "ผ่านได้จริง"
+  },
+  {
+    "id": 6,
+    "given_solution_steps": 20,
+    "shortest_valid_steps": 18,
+    "samples": [
+      34,
+      13,
+      16
+    ],
+    "hazards": 14,
+    "given_solution_valid": true,
+    "bfs_path_exists": true,
+    "overlaps": [],
+    "result": "ผ่านได้จริง",
+    "note": "ผ่านได้จริง"
+  },
+  {
+    "id": 7,
+    "given_solution_steps": 16,
+    "shortest_valid_steps": 16,
+    "samples": [
+      37,
+      41,
+      20
+    ],
+    "hazards": 15,
+    "given_solution_valid": true,
+    "bfs_path_exists": true,
+    "overlaps": [],
+    "result": "ผ่านได้จริง",
+    "note": "ผ่านได้จริง"
+  },
+  {
+    "id": 8,
+    "given_solution_steps": 19,
+    "shortest_valid_steps": 19,
+    "samples": [
+      13,
+      8,
+      29
+    ],
+    "hazards": 12,
+    "given_solution_valid": true,
+    "bfs_path_exists": true,
+    "overlaps": [],
+    "result": "ผ่านได้จริง",
+    "note": "ผ่านได้จริง"
+  },
+  {
+    "id": 9,
+    "given_solution_steps": 19,
+    "shortest_valid_steps": 19,
+    "samples": [
+      32,
+      35,
+      14
+    ],
+    "hazards": 14,
+    "given_solution_valid": true,
+    "bfs_path_exists": true,
+    "overlaps": [],
+    "result": "ผ่านได้จริง",
+    "note": "ผ่านได้จริง"
+  },
+  {
+    "id": 10,
+    "given_solution_steps": 19,
+    "shortest_valid_steps": 19,
+    "samples": [
+      17,
+      21,
+      7
+    ],
+    "hazards": 15,
+    "given_solution_valid": true,
+    "bfs_path_exists": true,
+    "overlaps": [],
+    "result": "ผ่านได้จริง",
+    "note": "ผ่านได้จริง"
+  },
+  {
+    "id": 11,
+    "given_solution_steps": 19,
+    "shortest_valid_steps": 19,
+    "samples": [
+      22,
+      28,
+      42
+    ],
+    "hazards": 16,
+    "given_solution_valid": true,
+    "bfs_path_exists": true,
+    "overlaps": [],
+    "result": "ผ่านได้จริง",
+    "note": "ผ่านได้จริง"
+  },
+  {
+    "id": 12,
+    "given_solution_steps": 19,
+    "shortest_valid_steps": 19,
+    "samples": [
+      36,
+      8,
+      12
+    ],
+    "hazards": 13,
+    "given_solution_valid": true,
+    "bfs_path_exists": true,
+    "overlaps": [],
+    "result": "ผ่านได้จริง",
+    "note": "ผ่านได้จริง"
+  },
+  {
+    "id": 13,
+    "given_solution_steps": 18,
+    "shortest_valid_steps": 18,
+    "samples": [
+      2,
+      7,
+      28
+    ],
+    "hazards": 14,
+    "given_solution_valid": true,
+    "bfs_path_exists": true,
+    "overlaps": [],
+    "result": "ผ่านได้จริง",
+    "note": "ผ่านได้จริง"
+  },
+  {
+    "id": 14,
+    "given_solution_steps": 20,
+    "shortest_valid_steps": 20,
+    "samples": [
+      8,
+      36,
+      40
+    ],
+    "hazards": 15,
+    "given_solution_valid": true,
+    "bfs_path_exists": true,
+    "overlaps": [],
+    "result": "ผ่านได้จริง",
+    "note": "ผ่านได้จริง"
+  },
+  {
+    "id": 15,
+    "given_solution_steps": 17,
+    "shortest_valid_steps": 17,
+    "samples": [
+      15,
+      20,
+      6
+    ],
+    "hazards": 16,
+    "given_solution_valid": true,
+    "bfs_path_exists": true,
+    "overlaps": [],
+    "result": "ผ่านได้จริง",
+    "note": "ผ่านได้จริง"
+  },
+  {
+    "id": 16,
+    "given_solution_steps": 19,
+    "shortest_valid_steps": 19,
+    "samples": [
+      34,
+      29,
+      8
+    ],
+    "hazards": 13,
+    "given_solution_valid": true,
+    "bfs_path_exists": true,
+    "overlaps": [],
+    "result": "ผ่านได้จริง",
+    "note": "ผ่านได้จริง"
+  },
+  {
+    "id": 17,
+    "given_solution_steps": 20,
+    "shortest_valid_steps": 20,
+    "samples": [
+      42,
+      7,
+      2
+    ],
+    "hazards": 14,
+    "given_solution_valid": true,
+    "bfs_path_exists": true,
+    "overlaps": [],
+    "result": "ผ่านได้จริง",
+    "note": "ผ่านได้จริง"
+  },
+  {
+    "id": 18,
+    "given_solution_steps": 21,
+    "shortest_valid_steps": 21,
+    "samples": [
+      31,
+      35,
+      14
+    ],
+    "hazards": 15,
+    "given_solution_valid": true,
+    "bfs_path_exists": true,
+    "overlaps": [],
+    "result": "ผ่านได้จริง",
+    "note": "ผ่านได้จริง"
+  },
+  {
+    "id": 19,
+    "given_solution_steps": 18,
+    "shortest_valid_steps": 18,
+    "samples": [
+      9,
+      13,
+      34
+    ],
+    "hazards": 16,
+    "given_solution_valid": true,
+    "bfs_path_exists": true,
+    "overlaps": [],
+    "result": "ผ่านได้จริง",
+    "note": "ผ่านได้จริง"
+  },
+  {
+    "id": 20,
+    "given_solution_steps": 19,
+    "shortest_valid_steps": 19,
+    "samples": [
+      28,
+      22,
+      36
+    ],
+    "hazards": 13,
+    "given_solution_valid": true,
+    "bfs_path_exists": true,
+    "overlaps": [],
+    "result": "ผ่านได้จริง",
+    "note": "ผ่านได้จริง"
+  }
+]

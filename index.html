@@ -1,0 +1,613 @@
+<!doctype html>
+<html lang="th">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover,user-scalable=no">
+<title>Step Up Coding Studio — World 3 Dinosaur Escape</title>
+<style>
+:root{--blue:#0b63ce;--navy:#12315c;--gold:#f4b51c;--green:#18a93b;--red:#df2d37;--cream:#fffdf5;--purple:#7247bd}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}html,body{margin:0;width:100%;height:100%;font-family:Arial,"Noto Sans Thai",sans-serif;overflow:hidden;color:#17335b}
+button{font:inherit;cursor:pointer}.hidden{display:none!important}
+.screen{width:100%;height:100dvh}
+
+/* HOME */
+#home{position:relative;background:#087ddd;display:grid;place-items:center;padding:0;overflow:hidden}
+/* Keep the approved 3:2 artwork completely visible on every screen. */
+.home-approved{position:relative;width:min(100vw,150vh);height:min(100vh,66.6667vw);width:min(100dvw,150dvh);height:min(100dvh,66.6667dvw);aspect-ratio:3/2;max-width:100%;max-height:100%;background:#087ddd;overflow:hidden}
+.home-approved img{position:absolute;inset:0;display:block;width:100%;height:100%;object-fit:fill}
+.home-hotspot{position:absolute;border:0;background:transparent;color:transparent;z-index:10;border-radius:18px;touch-action:manipulation}
+.home-hotspot:focus-visible{outline:5px solid #fff;outline-offset:3px}
+.hs-start{left:23.1%;top:76.4%;width:14.3%;height:9.2%}
+.hs-settings{left:39.1%;top:76.4%;width:17.6%;height:9.2%}
+.hs-exit{left:58.1%;top:76.4%;width:13.7%;height:9.2%}
+#game{background:linear-gradient(145deg,#c6edbd,#f6e4a2);padding:6px;display:grid;grid-template-rows:auto auto auto minmax(0,1fr) 150px;gap:5px}
+.topbar{background:var(--navy);color:#fff;border-radius:15px;padding:7px 11px;display:grid;grid-template-columns:1fr auto auto auto auto;align-items:center;gap:8px}
+.topbar h2{margin:0;font-size:clamp(16px,2.2vw,24px)}.topbar small{color:#f6cf63}.topbtn{border:0;border-radius:11px;padding:9px 13px;background:#f3c02d;color:#17335b;font-weight:1000;box-shadow:inset 0 -4px #0002,0 2px 4px #0003}.random-btn{background:linear-gradient(#248eea,#0869c2);color:#fff;min-width:118px}
+.info{background:#fff6bf;border-radius:12px;padding:6px 12px;font-weight:800;display:flex;justify-content:space-between;gap:10px;font-size:clamp(11px,1.4vw,15px)}.objective{background:linear-gradient(90deg,#e9f7ff,#fff);border:2px solid #70a9d4;border-left:8px solid #167bd3;border-radius:12px;padding:7px 13px;font-size:clamp(12px,1.5vw,16px);font-weight:1000;display:flex;align-items:center;gap:8px;min-height:38px}
+.playrow{display:grid;grid-template-columns:minmax(0,1fr) 228px;gap:7px;min-height:0;margin-bottom:1px;padding-right:112px}
+.stage,.palette,.coding{background:#ffffffed;border-radius:15px;padding:7px;box-shadow:0 4px 13px #0002}
+.stage{min-height:0;display:flex;flex-direction:column;padding:2px 8px 8px}.stagehead{font-weight:1000;font-size:13px;padding:0 3px 3px}
+.board{height:calc(100% - 16px);max-height:100%;aspect-ratio:7/6;margin:0 auto;display:grid;grid-template-columns:repeat(7,1fr);grid-template-rows:repeat(6,1fr);gap:4px;transform:translateY(-9px)}
+.cell{position:relative;min-height:0;border-radius:10px;border:2px solid #78b75b;background:linear-gradient(145deg,#e5fac7,#a9db78);display:grid;place-items:center;overflow:visible;box-shadow:inset 0 2px 0 #ffffff88,0 2px 4px #355b2522}.cell:nth-child(3n){background:linear-gradient(145deg,#d8f6bd,#96d36e)}.num{position:absolute;left:4px;top:3px;font-size:9px;font-weight:800;color:#4e7345}.asset{font-size:clamp(17px,3.2vh,36px);filter:drop-shadow(0 3px 2px #0005)}
+.palette{display:flex;flex-direction:column;min-height:0;padding:8px}.palette h3,.coding h3{margin:0 0 4px;font-size:15px}.cmd{border:0;border-radius:14px;padding:8px 7px;margin:3px 0;color:#fff;font-weight:1000;touch-action:none;user-select:none;flex:1;min-height:58px;font-size:20px;box-shadow:inset 0 -6px #0002,0 3px 6px #0003;display:flex;align-items:center;justify-content:center;gap:12px}.cmd .arrow{font-size:58px;font-weight:1000;line-height:.72;text-shadow:0 3px 2px #0005;-webkit-text-stroke:3px #fff}.move{background:linear-gradient(#2494ef,#086bc4)}.turn{background:linear-gradient(#9567dd,#6840ad)}.repeat{background:linear-gradient(#f79a38,#d76512)}.cmd:active{transform:translateY(2px);box-shadow:inset 0 -2px #0002}
+.coding{display:grid;grid-template-rows:auto minmax(0,1fr) auto;min-height:0;padding:6px 12px 7px}.program{min-height:0;height:78px;border:0;border-radius:12px;padding:6px 8px;display:flex;flex-wrap:wrap;align-content:flex-start;gap:7px;overflow-y:auto;overflow-x:hidden;touch-action:none;background:#fff;box-shadow:none}
+.block{position:relative;min-width:132px;height:52px;padding:8px 38px 8px 12px;border-radius:13px;background:linear-gradient(#2798ef,#0870c9);color:#fff;font-size:17px;font-weight:1000;display:flex;align-items:center;touch-action:none;user-select:none;box-shadow:inset 0 -5px #0002,0 3px 5px #0003;transform:translateY(-1px)}.block.repeat-block{background:linear-gradient(#ff941f,#e66b09);min-width:145px;box-shadow:inset 0 -4px #0002,0 2px 4px #0003}.del{position:absolute;right:5px;top:6px;border:0;border-radius:50%;width:28px;height:28px;background:#fff;color:#d33;font-size:17px;font-weight:1000;box-shadow:0 1px 3px #0003}
+.controls{display:flex;justify-content:center;gap:9px;flex-wrap:wrap;margin-top:0;transform:translateY(-7px)}.control{border:0;border-radius:11px;padding:9px 18px;color:#fff;font-weight:1000;font-size:15px;box-shadow:inset 0 -4px #0002,0 2px 4px #0003}.run{background:#17a83e}.undo{background:#167bd3}.clear{background:#d83b43}.hint{background:#7448bd}
+
+.settings-modal,.modal{position:fixed;inset:0;z-index:9999;background:rgba(5,18,38,.84);display:grid;place-items:center;padding:18px;backdrop-filter:blur(4px)}
+.settings-box,.modalbox{width:min(700px,94vw);max-height:90dvh;overflow-y:auto;overflow-x:hidden;background:#fff;border:6px solid #f4b51c;border-radius:26px;padding:24px;text-align:center;box-shadow:0 20px 70px #0008}
+.modalbox.success-box{animation:none}
+@keyframes successPop{from{transform:scale(.75);opacity:0}to{transform:scale(1);opacity:1}}
+.success-title{font-size:clamp(30px,5vw,54px);color:#159447;margin:0 0 8px;text-shadow:0 2px #fff}
+.success-stars{font-size:36px;letter-spacing:8px}
+@keyframes twinkle{to{transform:scale(1.12)}}
+.modalbox h2{margin:0 0 8px}.science-card{text-align:left;background:#eff8e8;border-radius:14px;padding:14px;margin:10px 0;border-left:7px solid #47a743}.science-card h3{margin:0 0 7px;color:#25712b}.vocab{background:#fff0aa;border-radius:10px;padding:8px;font-weight:900}.ending{background:linear-gradient(#eaf8ff,#dff5bd)}
+.footer{text-align:center;font-size:12px;font-weight:900}
+@media(max-width:820px){#game{grid-template-rows:auto auto auto minmax(0,1fr) 160px}.playrow{grid-template-columns:minmax(0,1fr) 190px;padding-right:24px}.home-content{inset:25% 8% 10%}}
+@media(max-width:620px) and (orientation:portrait){
+#game{overflow-y:auto;overflow-x:hidden;height:100dvh;grid-template-rows:auto auto auto auto}.playrow{grid-template-columns:1fr;padding-right:0}.palette{display:grid;grid-template-columns:repeat(3,1fr);gap:4px}.palette h3{grid-column:1/-1}.cmd{margin:0;min-height:54px;font-size:17px}.board{width:100%;height:auto}.coding{min-height:190px}.program{height:105px}.home-card{height:96dvh}.home-content{inset:24% 4% 8%}.home-buttons{gap:7px}.home-buttons button{padding:10px 13px}.owl{left:1%}.dinos{right:1%}}
+
+/* V3 approved-style artwork */
+.home-card{background:
+radial-gradient(ellipse at 12% 18%,#fff 0 45px,transparent 47px),
+radial-gradient(ellipse at 85% 16%,#fff 0 58px,transparent 60px),
+linear-gradient(#158ee9 0 34%,#c8efff 34% 37%,#69bf55 68%,#207f37)}
+.home-card:before{content:"";position:absolute;inset:auto 0 0;height:34%;z-index:2;opacity:.58;background:
+radial-gradient(ellipse at 7% 85%,#1d7134 0 55px,transparent 57px),
+radial-gradient(ellipse at 22% 92%,#2e9140 0 75px,transparent 77px),
+radial-gradient(ellipse at 76% 91%,#247f39 0 78px,transparent 80px),
+radial-gradient(ellipse at 94% 86%,#2e9140 0 60px,transparent 62px)}
+.owl-art{position:absolute;left:4.5%;bottom:3%;z-index:5;width:clamp(125px,17vw,230px);height:clamp(145px,23vh,285px);object-fit:contain;filter:drop-shadow(0 8px 5px #0004)}
+.escape-art{position:absolute;right:3.5%;bottom:2.2%;z-index:5;width:clamp(235px,29vw,410px);height:clamp(160px,25vh,285px)}
+.child-art{position:absolute;left:0;bottom:0;width:44%;height:90%;object-fit:contain;transform:rotate(-4deg)}
+.trex-art{position:absolute;right:0;bottom:0;width:69%;height:100%;object-fit:contain}
+.asset-img{width:76%;height:76%;object-fit:contain;image-rendering:pixelated;image-rendering:crisp-edges;filter:drop-shadow(0 4px 3px #0005);animation:assetBob 2.4s ease-in-out infinite}.asset-img.hero{width:64%;height:78%;animation:heroBounce 1.8s ease-in-out infinite}.asset-img.goal{width:72%;height:72%;animation:goalGlow 1.5s ease-in-out infinite}.asset-img.obstacle{width:70%;height:70%}@keyframes assetBob{0%,100%{transform:translateY(0)}50%{transform:translateY(-3px)}}@keyframes heroBounce{0%,100%{transform:translateY(0) rotate(-1deg)}50%{transform:translateY(-4px) rotate(1deg)}}@keyframes goalGlow{0%,100%{filter:drop-shadow(0 4px 3px #0005)}50%{filter:drop-shadow(0 4px 7px #ffd83f)}}
+@media(max-width:620px) and (orientation:portrait){.owl-art{left:-2%;width:34vw}.escape-art{right:-5%;width:52vw}.home-content{z-index:6}}
+
+
+
+.timer-box{display:flex;align-items:center;gap:8px;background:linear-gradient(#ffef86,#f3b928);border-radius:12px;padding:8px 13px;font-weight:1000;color:#442d00;box-shadow:inset 0 -4px #0002}
+.timer-box.danger{background:linear-gradient(#ff6a6a,#d82626);color:#fff;animation:timerPulse .65s ease-in-out infinite alternate}
+@keyframes timerPulse{to{transform:scale(1.04)}}
+.checkpoint-badge{position:absolute;right:2px;bottom:2px;background:#fff;border:2px solid #174eaa;border-radius:999px;width:20px;height:20px;display:grid;place-items:center;font-size:11px;font-weight:1000;color:#174eaa;z-index:6}
+.objective strong{color:#a43b00}
+
+.clock-wrap{position:relative;width:42px;height:42px;border-radius:50%;background:#fff;border:4px solid #b71f1f;box-shadow:inset 0 0 0 2px #ffdede,0 2px 4px #0003;flex:0 0 auto}
+.clock-wrap:before{content:"";position:absolute;left:50%;top:50%;width:6px;height:6px;background:#b71f1f;border-radius:50%;transform:translate(-50%,-50%);z-index:4}
+.clock-hand{position:absolute;left:50%;top:6px;width:4px;height:15px;background:#b71f1f;border-radius:4px;transform-origin:50% 100%;transform:translateX(-50%) rotate(0deg);z-index:3;transition:transform .2s linear}
+.timer-box{min-width:132px;justify-content:center}
+
+/* V15: science popup stays still and readable */
+.modalbox.success-box{animation:none!important;transform:none!important}
+.success-stars{animation:none!important;transform:none!important}
+.science-modal{width:min(720px,92vw);margin:0 auto}
+.science-heading{background:linear-gradient(90deg,#164d9d,#2187d9);color:#fff;border-radius:14px;padding:12px 16px;margin:10px 0 12px;text-align:center}
+.science-heading .main{display:block;font-size:clamp(21px,3vw,30px);font-weight:1000}
+.science-heading .grade{display:block;margin-top:4px;font-size:15px;color:#fff4a8;font-weight:900}
+.science-category{display:inline-block;background:#e9f5ff;border:2px solid #78add7;color:#174d85;border-radius:999px;padding:7px 14px;font-weight:1000;margin:0 0 10px}
+.science-card-static{text-align:left;background:#f4faef;border:3px solid #8fbe68;border-radius:16px;padding:16px;margin:8px 0 14px;box-shadow:none}
+.science-card-static h3{margin:0 0 9px;color:#236d2b;font-size:21px}
+.science-card-static p{font-size:17px;line-height:1.55;margin:7px 0}
+.science-word{background:#fff1ac;border-radius:10px;padding:10px;font-weight:1000;margin-top:10px}
+
+/* V16 Mission Complete: fit fully on screen, no side scrolling */
+.modal{overflow:hidden!important}
+.modalbox{
+ width:min(860px,94vw)!important;
+ max-width:94vw!important;
+ max-height:90dvh!important;
+ overflow-y:auto!important;
+ overflow-x:hidden!important;
+ padding:20px 22px!important;
+ box-sizing:border-box!important;
+}
+.science-modal{
+ width:100%!important;
+ max-width:100%!important;
+ overflow:hidden!important;
+ box-sizing:border-box!important;
+}
+.science-card-static{
+ width:100%!important;
+ max-width:100%!important;
+ box-sizing:border-box!important;
+ overflow:hidden!important;
+}
+.science-card-static h3,
+.science-card-static p,
+.science-word{
+ overflow-wrap:anywhere!important;
+ word-break:normal!important;
+}
+.science-actions{
+ display:flex;
+ justify-content:center;
+ gap:10px;
+ flex-wrap:wrap;
+ margin-top:12px;
+}
+.science-actions button{
+ min-width:190px;
+ padding:11px 16px;
+}
+@media(max-width:700px){
+ .modalbox{width:96vw!important;max-width:96vw!important;padding:15px!important}
+ .success-title{font-size:34px!important}
+ .science-heading .main{font-size:23px!important}
+ .science-card-static p{font-size:15px!important}
+ .science-actions button{width:100%;min-width:0}
+}
+
+/* V19 CHARACTER UPGRADE — PNG asset and UI polish only. Core layout/game logic unchanged. */
+.ui-icon{width:25px;height:25px;object-fit:contain;vertical-align:middle;flex:0 0 auto;filter:drop-shadow(0 2px 1px #0003)}
+.inline-icon{width:27px;height:27px;margin-right:5px}.title-dino{width:34px;height:34px}.command-icon{width:34px;height:34px}.arrow-img{width:58px;height:58px;object-fit:contain;filter:drop-shadow(0 3px 2px #0004)}
+.topbar h2,.topbtn,.info span,.objective,.palette h3,.coding h3,.control,.settings-box h2{display:flex;align-items:center;gap:7px}.topbtn,.control{justify-content:center}
+.cmd{border:2px solid #ffffff55}.cmd:hover,.topbtn:hover,.control:hover{filter:brightness(1.05)}
+.asset-img{image-rendering:auto}.block-icon{width:32px;height:32px;object-fit:contain;margin-right:8px;filter:drop-shadow(0 2px 1px #0003)}
+.success-box{background:linear-gradient(180deg,#fffef4,#effae7)!important;border-color:#f4b51c!important;box-shadow:0 22px 80px #0009, inset 0 0 0 4px #fff7c7!important}
+.success-heroes{height:112px;display:flex;justify-content:center;align-items:flex-end;gap:14px;margin:-8px 0 -8px}.success-heroes img{width:105px;height:105px;object-fit:contain;filter:drop-shadow(0 6px 5px #0004)}.success-heroes img:nth-child(2){width:120px}.success-heroes img:nth-child(3){transform:scaleX(-1)}
+.success-stars{display:flex;justify-content:center;gap:5px}.success-stars img{width:44px;height:44px;object-fit:contain;animation:twinkle .7s ease-in-out infinite alternate}.success-stars img:nth-child(2){animation-delay:.15s}.success-stars img:nth-child(3){animation-delay:.3s}
+.success-title{font-weight:1000;letter-spacing:1px;background:linear-gradient(#29b34f,#08772c);-webkit-background-clip:text;background-clip:text;color:transparent;text-shadow:none}
+.science-heading .main{display:flex;align-items:center;justify-content:center;gap:7px}.science-word{display:flex;align-items:center;gap:5px}.science-actions button{display:inline-flex;align-items:center;justify-content:center;gap:7px}
+@media(max-width:700px){.success-heroes{height:86px}.success-heroes img{width:80px;height:80px}.success-heroes img:nth-child(2){width:92px}.arrow-img{width:48px;height:48px}}
+
+
+/* V22 FINAL POLISH — visual effects only; mission logic remains unchanged. */
+.cell::after{content:"";position:absolute;left:22%;right:22%;bottom:8%;height:9%;border-radius:50%;background:rgba(31,74,25,.20);filter:blur(2px);z-index:0;pointer-events:none}
+.asset-img{position:relative;z-index:2;transform-origin:50% 88%}
+.asset-img.scenery{animation:sceneryBreathe 3.8s ease-in-out infinite}
+.asset-img.dinosaur{width:76%;height:76%;animation:dinoIdle 2.2s ease-in-out infinite;filter:drop-shadow(0 5px 3px #0006)}
+.asset-img.collectible{width:66%;height:66%;animation:collectibleGlow 1.35s ease-in-out infinite;filter:drop-shadow(0 4px 3px #0005)}
+.asset-img.hero{filter:drop-shadow(0 6px 3px #0006);animation:heroBounce 1.7s ease-in-out infinite}
+.asset-img.goal{filter:drop-shadow(0 6px 4px #0006);animation:goalGlow 1.45s ease-in-out infinite}
+@keyframes sceneryBreathe{0%,100%{transform:translateY(0) scale(1)}50%{transform:translateY(-1px) scale(1.015)}}
+@keyframes dinoIdle{0%,100%{transform:translateY(0) rotate(-1deg)}50%{transform:translateY(-3px) rotate(1deg)}}
+@keyframes collectibleGlow{0%,100%{transform:translateY(0) scale(1);filter:drop-shadow(0 4px 3px #0005)}50%{transform:translateY(-4px) scale(1.06);filter:drop-shadow(0 5px 7px #ffe45c)}}
+.collect-burst{position:absolute;inset:0;z-index:20;pointer-events:none;display:grid;place-items:center;animation:burstFade .72s ease-out forwards}
+.collect-burst::before{content:"✦";font-size:44px;color:#fff36d;text-shadow:0 0 6px #fff,0 0 14px #ffad18;animation:burstPop .72s ease-out forwards}
+.collect-burst span{position:absolute;font-size:12px;color:#fff;font-weight:1000;background:#187bd1;border:2px solid #fff;border-radius:999px;padding:3px 8px;bottom:4px;white-space:nowrap;box-shadow:0 2px 5px #0005}
+@keyframes burstPop{0%{transform:scale(.2) rotate(0deg);opacity:0}35%{transform:scale(1.35) rotate(25deg);opacity:1}100%{transform:scale(1.8) rotate(70deg);opacity:0}}
+@keyframes burstFade{0%,70%{opacity:1}100%{opacity:0}}
+
+
+/* V24: iPad landscape single-screen fit — visual layout only */
+#game{padding-left:max(6px,env(safe-area-inset-left));padding-right:max(6px,env(safe-area-inset-right));padding-bottom:max(6px,env(safe-area-inset-bottom))}
+#musicBtn.sound-off{opacity:.72;filter:grayscale(.45)}
+@media (min-width:768px) and (max-width:1180px) and (orientation:landscape){
+  #game{height:100svh;grid-template-rows:auto auto auto minmax(0,1fr) 138px;gap:4px;padding:5px}
+  .topbar{padding:5px 8px;gap:5px}.topbar h2{font-size:17px}.topbtn{padding:7px 9px;font-size:13px}.random-btn{min-width:98px}
+  .info{padding:4px 9px;font-size:11px}.objective{min-height:31px;padding:4px 9px;font-size:12px}
+  .playrow{grid-template-columns:minmax(0,1fr) 205px;gap:6px;padding-right:18px;margin:0}
+  .stage{padding:1px 6px 5px}.board{transform:translateY(-5px);gap:3px}
+  .palette{padding:6px}.palette h3{font-size:13px}.cmd{min-height:44px;margin:2px 0;padding:5px;font-size:16px}.cmd .arrow{font-size:43px}.arrow-img{width:43px;height:43px}.command-icon{width:28px;height:28px}
+  .coding{padding:4px 10px 5px}.coding h3{font-size:13px}.program{height:67px}.block{height:45px;min-width:116px;font-size:15px}.controls{transform:translateY(-4px)}.control{padding:7px 14px;font-size:14px}
+}
+</style>
+</head>
+<body>
+<section id="home" class="screen"><div class="home-approved"><img src="world3-home-approved.png" alt="Step Up Coding Studio World 3 Dinosaur Escape"><button class="home-hotspot hs-start" id="startBtn" aria-label="Start">START</button><button class="home-hotspot hs-settings" id="settingsBtn" aria-label="Settings">SETTINGS</button><button class="home-hotspot hs-exit" id="exitBtn" aria-label="Exit">EXIT</button></div></section>
+<section id="game" class="screen hidden">
+ <div class="topbar"><div><small>STEP UP CODING STUDIO</small><h2><img class="ui-icon title-dino" src="assets/world3/dinosaurs/dinosaur_trex_boss.png" alt=""> WORLD 3 : DINOSAUR ESCAPE</h2></div><div class="timer-box" id="timerBox"><div class="clock-wrap"><div class="clock-hand" id="clockHand"></div></div><span id="timerText">--:--</span></div><button class="topbtn random-btn" id="randomBtn"><img class="ui-icon" src="assets/ui/shuffle.png" alt=""> สุ่มด่าน</button><button class="topbtn" id="homeBtn"><img class="ui-icon" src="assets/ui/home.png" alt=""> HOME</button><button class="topbtn" id="musicBtn"><img class="ui-icon" src="assets/ui/music.png" alt=""> <span class="music-label">ปิด</span></button></div>
+ <div class="info"><span><img class="ui-icon inline-icon" src="assets/ui/dice.png" alt=""> ครูกด “สุ่มด่าน” เพื่อเลือกโจทย์ใดก็ได้จากทั้งหมด 20 ด่าน</span><span id="progress">ภารกิจ 1 / 20</span></div><div class="objective" id="missionObjective"><img class="ui-icon inline-icon" src="assets/ui/target.png" alt=""> โจทย์: กำลังเตรียมภารกิจ…</div>
+ <div class="playrow">
+  <section class="stage"><div class="stagehead" id="missionTitle">ESCAPE MISSION</div><div class="board" id="board"></div></section>
+  <aside class="palette"><h3><img class="ui-icon inline-icon" src="assets/ui/toolbox.png" alt=""> Command Palette</h3><button class="cmd move" data-cmd="U"><img class="arrow-img" src="assets/ui/arrow-u.png" alt="ขึ้น"><span>ขึ้น</span></button><button class="cmd move" data-cmd="D"><img class="arrow-img" src="assets/ui/arrow-d.png" alt="ลง"><span>ลง</span></button><button class="cmd turn" data-cmd="L"><img class="arrow-img" src="assets/ui/arrow-l.png" alt="ซ้าย"><span>ซ้าย</span></button><button class="cmd turn" data-cmd="R"><img class="arrow-img" src="assets/ui/arrow-r.png" alt="ขวา"><span>ขวา</span></button><button class="cmd repeat" data-repeat="2"><img class="ui-icon command-icon" src="assets/ui/repeat.png" alt=""> ทำซ้ำ 2</button><button class="cmd repeat" data-repeat="3"><img class="ui-icon command-icon" src="assets/ui/repeat.png" alt=""> ทำซ้ำ 3</button></aside>
+ </div>
+ <section class="coding"><h3><img class="ui-icon inline-icon" src="assets/ui/coding.png" alt=""> Coding Area — แตะเพิ่ม • ลากสลับ • กด × ลบทีละบล็อก</h3><div class="program" id="program"></div><div class="controls"><button class="control run" id="runBtn"><img class="ui-icon" src="assets/ui/run.png" alt=""> RUN</button><button class="control undo" id="undoBtn"><img class="ui-icon" src="assets/ui/undo.png" alt=""> Undo</button><button class="control clear" id="clearBtn"><img class="ui-icon" src="assets/ui/trash.png" alt=""> ล้าง</button><button class="control hint" id="hintBtn"><img class="ui-icon" src="assets/ui/hint.png" alt=""> คำใบ้</button></div></section>
+</section>
+
+<div id="settingsModal" class="settings-modal hidden"><div class="settings-box"><h2><img class="ui-icon inline-icon" src="assets/ui/settings.png" alt=""> SETTINGS</h2><div class="setting-row"><b>แสดงหมายเลขช่อง</b><button id="numberToggle">เปิด</button></div><div class="setting-row"><b>ความเร็วการเดิน</b><button id="speedToggle">ปกติ</button></div><button id="closeSettings">ปิด</button></div></div>
+<div id="modal" class="modal hidden"><div id="modalbox" class="modalbox"></div></div>
+
+<script>
+const MISSIONS=[{"id":1,"start":36,"goal":7,"obstacles":[10,11,13,14,23,24,25,26,29,30,32],"solution":["R","R","R","R","R","U","U","U","L","L","L","L","U","U","R","R","R","R","R"],"checkpoints":[41,18,2],"checkpointTypes":["egg","fossil","amber"],"dinosaurs":[12,22],"dinoTypes":["raptor","triceratops"],"factIndex":0,"objective":"เด็ก ๆ ช่วยนักสำรวจเก็บตัวอย่างให้ครบตามลำดับ 1) ไข่ไดโนเสาร์ 2) ฟอสซิล 3) อำพัน แล้วจึงกลับไปยังค่ายปลอดภัย ห้ามเข้าค่ายก่อนเก็บตัวอย่างครบ","difficulty":4,"timeLimit":60},{"id":2,"start":7,"goal":38,"obstacles":[10,11,12,14,17,19,20,22,31,33,34,36],"solution":["L","L","L","L","L","D","D","D","R","R","R","R","R","D","D","L","L","L","L"],"checkpoints":[2,25,35],"checkpointTypes":["egg","fossil","amber"],"dinosaurs":[21,30],"dinoTypes":["triceratops","stegosaurus"],"factIndex":1,"objective":"เด็ก ๆ ช่วยนักสำรวจเก็บตัวอย่างให้ครบตามลำดับ 1) ไข่ไดโนเสาร์ 2) ฟอสซิล 3) อำพัน แล้วจึงกลับไปยังค่ายปลอดภัย ห้ามเข้าค่ายก่อนเก็บตัวอย่างครบ","difficulty":4,"timeLimit":60},{"id":3,"start":39,"goal":1,"obstacles":[2,3,4,5,6,9,16,20,26,36,37,40,41],"solution":["U","U","U","U","R","R","R","D","D","D","L","L","L","L","L","L","U","U","U","U"],"checkpoints":[12,35,30],"checkpointTypes":["egg","fossil","amber"],"dinosaurs":[10,27],"dinoTypes":["stegosaurus","trex"],"factIndex":2,"objective":"เด็ก ๆ ช่วยนักสำรวจเก็บตัวอย่างให้ครบตามลำดับ 1) ไข่ไดโนเสาร์ 2) ฟอสซิล 3) อำพัน แล้วจึงกลับไปยังค่ายปลอดภัย ห้ามเข้าค่ายก่อนเก็บตัวอย่างครบ","difficulty":4,"timeLimit":60},{"id":4,"start":1,"goal":21,"obstacles":[8,9,10,11,15,25,26,29,40,41],"solution":["R","R","R","R","R","D","D","D","D","L","L","L","L","U","U","R","R","R","R","R"],"checkpoints":[6,33,16],"checkpointTypes":["egg","fossil","amber"],"dinosaurs":[7,37],"dinoTypes":["trex","raptor"],"factIndex":3,"objective":"เด็ก ๆ ช่วยนักสำรวจเก็บตัวอย่างให้ครบตามลำดับ 1) ไข่ไดโนเสาร์ 2) ฟอสซิล 3) อำพัน แล้วจึงกลับไปยังค่ายปลอดภัย ห้ามเข้าค่ายก่อนเก็บตัวอย่างครบ","difficulty":4,"timeLimit":60},{"id":5,"start":42,"goal":34,"obstacles":[1,2,8,11,14,23,26,32,33,40,41],"solution":["U","U","U","L","L","L","L","U","U","R","R","R","D","D","D","D"],"checkpoints":[20,10,6],"checkpointTypes":["egg","fossil","amber"],"dinosaurs":[7,39],"dinoTypes":["raptor","triceratops"],"factIndex":4,"objective":"เด็ก ๆ ช่วยนักสำรวจเก็บตัวอย่างให้ครบตามลำดับ 1) ไข่ไดโนเสาร์ 2) ฟอสซิล 3) อำพัน แล้วจึงกลับไปยังค่ายปลอดภัย ห้ามเข้าค่ายก่อนเก็บตัวอย่างครบ","difficulty":4,"timeLimit":60},{"id":6,"start":29,"goal":27,"obstacles":[1,2,3,4,8,15,17,18,22,37,39,40],"solution":["R","R","R","R","R","R","U","U","U","L","L","L","L","L","D","D","R","R","R","R"],"checkpoints":[34,13,16],"checkpointTypes":["egg","fossil","amber"],"dinosaurs":[36,38],"dinoTypes":["triceratops","stegosaurus"],"factIndex":5,"objective":"เด็ก ๆ ช่วยนักสำรวจเก็บตัวอย่างให้ครบตามลำดับ 1) ไข่ไดโนเสาร์ 2) ฟอสซิล 3) อำพัน แล้วจึงกลับไปยังค่ายปลอดภัย ห้ามเข้าค่ายก่อนเก็บตัวอย่างครบ","difficulty":4,"timeLimit":60},{"id":7,"start":2,"goal":4,"obstacles":[1,5,6,7,10,12,13,14,15,21,22,28,42],"solution":["D","D","D","D","D","R","R","R","R","U","U","U","L","L","U","U"],"checkpoints":[37,41,20],"checkpointTypes":["egg","fossil","amber"],"dinosaurs":[8,24],"dinoTypes":["stegosaurus","trex"],"factIndex":6,"objective":"เด็ก ๆ ช่วยนักสำรวจเก็บตัวอย่างให้ครบตามลำดับ 1) ไข่ไดโนเสาร์ 2) ฟอสซิล 3) อำพัน แล้วจึงกลับไปยังค่ายปลอดภัย ห้ามเข้าค่ายก่อนเก็บตัวอย่างครบ","difficulty":5,"timeLimit":75},{"id":8,"start":41,"goal":4,"obstacles":[2,7,14,17,19,26,28,33,40,42],"solution":["U","U","U","U","L","L","L","L","L","D","D","D","R","R","R","U","U","U","U"],"checkpoints":[13,8,29],"checkpointTypes":["egg","fossil","amber"],"dinosaurs":[3,37],"dinoTypes":["trex","raptor"],"factIndex":7,"objective":"เด็ก ๆ ช่วยนักสำรวจเก็บตัวอย่างให้ครบตามลำดับ 1) ไข่ไดโนเสาร์ 2) ฟอสซิล 3) อำพัน แล้วจึงกลับไปยังค่ายปลอดภัย ห้ามเข้าค่ายก่อนเก็บตัวอย่างครบ","difficulty":5,"timeLimit":75},{"id":9,"start":4,"goal":37,"obstacles":[1,3,5,8,17,19,20,26,27,38,39],"solution":["D","D","D","D","R","R","R","U","U","U","L","L","L","L","L","D","D","D","D"],"checkpoints":[32,35,14],"checkpointTypes":["egg","fossil","amber"],"dinosaurs":[7,24,29],"dinoTypes":["raptor","triceratops","stegosaurus"],"factIndex":8,"objective":"เด็ก ๆ ช่วยนักสำรวจเก็บตัวอย่างให้ครบตามลำดับ 1) ไข่ไดโนเสาร์ 2) ฟอสซิล 3) อำพัน แล้วจึงกลับไปยังค่ายปลอดภัย ห้ามเข้าค่ายก่อนเก็บตัวอย่างครบ","difficulty":5,"timeLimit":75},{"id":10,"start":38,"goal":29,"obstacles":[9,10,11,12,16,23,32,33,35,39,40,42],"solution":["U","U","U","R","R","R","R","U","U","L","L","L","L","L","L","D","D","D","D"],"checkpoints":[17,21,7],"checkpointTypes":["egg","fossil","amber"],"dinosaurs":[26,28,37],"dinoTypes":["triceratops","stegosaurus","trex"],"factIndex":9,"objective":"เด็ก ๆ ช่วยนักสำรวจเก็บตัวอย่างให้ครบตามลำดับ 1) ไข่ไดโนเสาร์ 2) ฟอสซิล 3) อำพัน แล้วจึงกลับไปยังค่ายปลอดภัย ห้ามเข้าค่ายก่อนเก็บตัวอย่างครบ","difficulty":5,"timeLimit":75},{"id":11,"start":1,"goal":10,"obstacles":[2,3,6,9,11,18,20,29,30,32,34,36,37],"solution":["D","D","D","R","R","R","R","R","R","D","D","L","L","L","L","U","U","U","U"],"checkpoints":[22,28,42],"checkpointTypes":["egg","fossil","amber"],"dinosaurs":[12,14,21],"dinoTypes":["stegosaurus","trex","raptor"],"factIndex":10,"objective":"เด็ก ๆ ช่วยนักสำรวจเก็บตัวอย่างให้ครบตามลำดับ 1) ไข่ไดโนเสาร์ 2) ฟอสซิล 3) อำพัน แล้วจึงกลับไปยังค่ายปลอดภัย ห้ามเข้าค่ายก่อนเก็บตัวอย่างครบ","difficulty":5,"timeLimit":75},{"id":12,"start":42,"goal":23,"obstacles":[3,4,5,6,13,21,27,28,33,34],"solution":["L","L","L","L","L","L","U","U","U","U","R","R","R","R","D","D","L","L","L"],"checkpoints":[36,8,12],"checkpointTypes":["egg","fossil","amber"],"dinosaurs":[1,17,18],"dinoTypes":["trex","raptor","triceratops"],"factIndex":11,"objective":"เด็ก ๆ ช่วยนักสำรวจเก็บตัวอย่างให้ครบตามลำดับ 1) ไข่ไดโนเสาร์ 2) ฟอสซิล 3) อำพัน แล้วจึงกลับไปยังค่ายปลอดภัย ห้ามเข้าค่ายก่อนเก็บตัวอย่างครบ","difficulty":5,"timeLimit":75},{"id":13,"start":30,"goal":38,"obstacles":[1,8,11,12,15,17,22,33,36,39,40],"solution":["U","U","U","U","R","R","R","R","R","D","D","D","L","L","L","L","D","D"],"checkpoints":[2,7,28],"checkpointTypes":["egg","fossil","amber"],"dinosaurs":[10,29,35],"dinoTypes":["raptor","triceratops","stegosaurus"],"factIndex":12,"objective":"เด็ก ๆ ช่วยนักสำรวจเก็บตัวอย่างให้ครบตามลำดับ 1) ไข่ไดโนเสาร์ 2) ฟอสซิล 3) อำพัน แล้วจึงกลับไปยังค่ายปลอดภัย ห้ามเข้าค่ายก่อนเก็บตัวอย่างครบ","difficulty":5,"timeLimit":75},{"id":14,"start":14,"goal":16,"obstacles":[2,4,5,20,21,25,27,28,32,34,35,42],"solution":["L","L","L","L","L","L","D","D","D","D","R","R","R","R","U","U","U","L","L","L"],"checkpoints":[8,36,40],"checkpointTypes":["egg","fossil","amber"],"dinosaurs":[3,6,23],"dinoTypes":["triceratops","stegosaurus","trex"],"factIndex":13,"objective":"เด็ก ๆ ช่วยนักสำรวจเก็บตัวอย่างให้ครบตามลำดับ 1) ไข่ไดโนเสาร์ 2) ฟอสซิล 3) อำพัน แล้วจึงกลับไปยังค่ายปลอดภัย ห้ามเข้าค่ายก่อนเก็บตัวอย่างครบ","difficulty":5,"timeLimit":75},{"id":15,"start":36,"goal":31,"obstacles":[2,7,8,9,11,12,14,21,28,39,40,41,42],"solution":["U","U","U","R","R","R","R","R","U","U","L","L","L","D","D","D","D"],"checkpoints":[15,20,6],"checkpointTypes":["egg","fossil","amber"],"dinosaurs":[1,33,37],"dinoTypes":["stegosaurus","trex","raptor"],"factIndex":14,"objective":"เด็ก ๆ ช่วยนักสำรวจเก็บตัวอย่างให้ครบตามลำดับ 1) ไข่ไดโนเสาร์ 2) ฟอสซิล 3) อำพัน แล้วจึงกลับไปยังค่ายปลอดภัย ห้ามเข้าค่ายก่อนเก็บตัวอย่างครบ","difficulty":5,"timeLimit":90},{"id":16,"start":6,"goal":39,"obstacles":[2,3,7,12,14,16,23,24,40,42],"solution":["D","D","D","D","L","L","L","L","L","U","U","U","R","R","R","D","D","D","D"],"checkpoints":[34,29,8],"checkpointTypes":["egg","fossil","amber"],"dinosaurs":[1,19,41],"dinoTypes":["trex","raptor","triceratops"],"factIndex":15,"objective":"เด็ก ๆ ช่วยนักสำรวจเก็บตัวอย่างให้ครบตามลำดับ 1) ไข่ไดโนเสาร์ 2) ฟอสซิล 3) อำพัน แล้วจึงกลับไปยังค่ายปลอดภัย ห้ามเข้าค่ายก่อนเก็บตัวอย่างครบ","difficulty":5,"timeLimit":90},{"id":17,"start":39,"goal":27,"obstacles":[8,11,15,18,19,20,30,32,33,34,36],"solution":["R","R","R","U","U","U","U","U","L","L","L","L","L","D","D","D","R","R","R","R"],"checkpoints":[42,7,2],"checkpointTypes":["egg","fossil","amber"],"dinosaurs":[12,22,29],"dinoTypes":["raptor","triceratops","stegosaurus"],"factIndex":16,"objective":"เด็ก ๆ ช่วยนักสำรวจเก็บตัวอย่างให้ครบตามลำดับ 1) ไข่ไดโนเสาร์ 2) ฟอสซิล 3) อำพัน แล้วจึงกลับไปยังค่ายปลอดภัย ห้ามเข้าค่ายก่อนเก็บตัวอย่างครบ","difficulty":5,"timeLimit":90},{"id":18,"start":3,"goal":36,"obstacles":[1,2,4,5,6,7,19,20,25,37,38,42],"solution":["D","D","D","D","R","R","R","R","U","U","U","L","L","L","L","L","L","D","D","D","D"],"checkpoints":[31,35,14],"checkpointTypes":["egg","fossil","amber"],"dinosaurs":[16,18,40],"dinoTypes":["triceratops","stegosaurus","trex"],"factIndex":17,"objective":"เด็ก ๆ ช่วยนักสำรวจเก็บตัวอย่างให้ครบตามลำดับ 1) ไข่ไดโนเสาร์ 2) ฟอสซิล 3) อำพัน แล้วจึงกลับไปยังค่ายปลอดภัย ห้ามเข้าค่ายก่อนเก็บตัวอย่างครบ","difficulty":5,"timeLimit":90},{"id":19,"start":37,"goal":3,"obstacles":[1,2,6,7,8,14,15,18,21,22,28,36,41],"solution":["U","U","U","U","R","R","R","R","D","D","D","L","L","L","U","U","U","U"],"checkpoints":[9,13,34],"checkpointTypes":["egg","fossil","amber"],"dinosaurs":[29,35,38],"dinoTypes":["stegosaurus","trex","raptor"],"factIndex":18,"objective":"เด็ก ๆ ช่วยนักสำรวจเก็บตัวอย่างให้ครบตามลำดับ 1) ไข่ไดโนเสาร์ 2) ฟอสซิล 3) อำพัน แล้วจึงกลับไปยังค่ายปลอดภัย ห้ามเข้าค่ายก่อนเก็บตัวอย่างครบ","difficulty":5,"timeLimit":90},{"id":20,"start":7,"goal":12,"obstacles":[2,3,4,6,9,13,15,18,30,35],"solution":["D","D","D","L","L","L","L","L","L","D","D","R","R","R","R","U","U","U","U"],"checkpoints":[28,22,36],"checkpointTypes":["egg","fossil","amber"],"dinosaurs":[16,20,31],"dinoTypes":["trex","raptor","triceratops"],"factIndex":19,"objective":"เด็ก ๆ ช่วยนักสำรวจเก็บตัวอย่างให้ครบตามลำดับ 1) ไข่ไดโนเสาร์ 2) ฟอสซิล 3) อำพัน แล้วจึงกลับไปยังค่ายปลอดภัย ห้ามเข้าค่ายก่อนเก็บตัวอย่างครบ","difficulty":5,"timeLimit":90}];
+const SCIENCE=[{"title": "ไดโนเสาร์สูญพันธุ์เพราะอะไร?", "text": "หลักฐานจำนวนมากชี้ว่า เมื่อประมาณ 66 ล้านปีก่อน อุกกาบาตขนาดใหญ่ชนโลก ฝุ่นและละอองลอยขึ้นปกคลุมบรรยากาศ ทำให้แสงอาทิตย์ลดลง อากาศเปลี่ยน และห่วงโซ่อาหารเสียสมดุล", "word": "บรรยากาศ = ชั้นของก๊าซที่ห่อหุ้มโลก"}, {"title": "ภูเขาไฟมีส่วนด้วยหรือไม่?", "text": "ช่วงใกล้เคียงกันมีภูเขาไฟขนาดใหญ่ปะทุเป็นเวลานาน ปล่อยก๊าซและฝุ่นจำนวนมาก นักวิทยาศาสตร์คิดว่าเหตุการณ์นี้อาจทำให้ภูมิอากาศเปลี่ยนแปลงรุนแรงขึ้น", "word": "ภูมิอากาศ = ลักษณะอากาศเฉลี่ยในระยะยาว"}, {"title": "คาร์บอนไดออกไซด์คืออะไร?", "text": "คาร์บอนไดออกไซด์ หรือ CO₂ เป็นก๊าซเรือนกระจกชนิดหนึ่ง สิ่งมีชีวิตปล่อยออกมาจากการหายใจ และกิจกรรมของมนุษย์ เช่น การเผาเชื้อเพลิง ก็เพิ่มก๊าซนี้ในอากาศ", "word": "CO₂ อ่านว่า ซี-โอ-ทู"}, {"title": "ออกซิเจนสำคัญอย่างไร?", "text": "ออกซิเจน หรือ O₂ เป็นก๊าซที่มนุษย์และสัตว์ส่วนใหญ่ใช้ในการหายใจ พืชสร้างออกซิเจนระหว่างกระบวนการสังเคราะห์ด้วยแสง", "word": "O₂ อ่านว่า โอ-ทู"}, {"title": "ก๊าซมีเทนคืออะไร?", "text": "มีเทน หรือ CH₄ เป็นก๊าซเรือนกระจก เกิดได้จากพื้นที่ชุ่มน้ำ การย่อยอาหารของสัตว์บางชนิด หลุมฝังกลบ และการผลิตเชื้อเพลิง", "word": "CH₄ อ่านว่า ซี-เอช-โฟร์"}, {"title": "ขยะเกี่ยวข้องกับโลกร้อนอย่างไร?", "text": "ขยะอินทรีย์ที่ถูกฝังรวมกันอาจย่อยสลายและปล่อยก๊าซมีเทน การแยกเศษอาหารไปทำปุ๋ยหมักช่วยลดขยะฝังกลบได้", "word": "ขยะอินทรีย์ = เศษอาหาร ใบไม้ และวัสดุที่ย่อยสลายได้"}, {"title": "รีไซเคิลช่วยโลกได้อย่างไร?", "text": "การรีไซเคิลช่วยลดการใช้วัตถุดิบใหม่ ลดพลังงานในการผลิตบางประเภท และลดปริมาณขยะ แต่ควรเริ่มจาก ลดใช้ และใช้ซ้ำ ก่อนเสมอ", "word": "หลัก 3R: Reduce • Reuse • Recycle"}, {"title": "แยกขยะให้ถูกต้อง", "text": "กระดาษสะอาด ขวดพลาสติกบางชนิด กระป๋องโลหะ และแก้ว สามารถนำไปรีไซเคิลได้เมื่อแยกและทำให้สะอาด ส่วนขยะเปื้อนอาหารควรแยกออก", "word": "ล้าง • ตากให้แห้ง • แยกประเภท"}, {"title": "ทำไมต้องลดพลาสติกใช้ครั้งเดียว?", "text": "พลาสติกใช้ครั้งเดียวบางชิ้นใช้งานเพียงไม่กี่นาที แต่คงอยู่ในสิ่งแวดล้อมได้นาน การพกขวดน้ำ กล่องอาหาร และถุงใช้ซ้ำช่วยลดขยะได้", "word": "ใช้ซ้ำหลายครั้งดีกว่าใช้ครั้งเดียว"}, {"title": "ต้นไม้ช่วยโลกอย่างไร?", "text": "พืชใช้คาร์บอนไดออกไซด์ น้ำ และพลังงานแสงอาทิตย์ในการสร้างอาหาร พร้อมปล่อยออกซิเจน แต่การปลูกต้นไม้ต้องดูแลให้รอดและเหมาะกับพื้นที่", "word": "กระบวนการนี้เรียกว่า การสังเคราะห์ด้วยแสง"}, {"title": "ระบบนิเวศคืออะไร?", "text": "ระบบนิเวศประกอบด้วยสิ่งมีชีวิตและสิ่งไม่มีชีวิตที่สัมพันธ์กัน เช่น พืช สัตว์ น้ำ ดิน และอากาศ เมื่อส่วนหนึ่งเปลี่ยน ส่วนอื่นอาจได้รับผลกระทบ", "word": "ทุกชีวิตเชื่อมโยงกัน"}, {"title": "ห่วงโซ่อาหารสำคัญอย่างไร?", "text": "พืชเป็นผู้ผลิต สัตว์กินพืชกินพืช และสัตว์กินเนื้อกินสัตว์อื่น หากพืชลดลงมาก สัตว์หลายชนิดก็ขาดอาหารตามไปด้วย", "word": "พลังงานเริ่มต้นจากดวงอาทิตย์"}, {"title": "ฟอสซิลบอกอะไรเรา?", "text": "ฟอสซิลคือร่องรอยหรือซากของสิ่งมีชีวิตในอดีต เช่น กระดูก ฟัน รอยเท้า และใบไม้ นักบรรพชีวินวิทยาใช้ฟอสซิลศึกษาชีวิตโบราณ", "word": "นักบรรพชีวินวิทยา = ผู้ศึกษาชีวิตในอดีต"}, {"title": "ไดโนเสาร์ทุกชนิดตัวใหญ่หรือไม่?", "text": "ไม่ใช่ค่ะ ไดโนเสาร์มีทั้งขนาดเล็กและใหญ่ บางชนิดมีขนาดใกล้เคียงไก่ ขณะที่บางชนิดยาวกว่ารถบัสหลายคัน", "word": "ความหลากหลาย = มีหลายแบบ หลายขนาด"}, {"title": "นกเกี่ยวข้องกับไดโนเสาร์อย่างไร?", "text": "หลักฐานจากกระดูกและฟอสซิลขนแสดงว่า นกในปัจจุบันสืบเชื้อสายมาจากไดโนเสาร์กินเนื้อกลุ่มหนึ่ง จึงกล่าวได้ว่านกคือไดโนเสาร์ที่ยังมีชีวิตอยู่", "word": "วิวัฒนาการ = การเปลี่ยนแปลงของสิ่งมีชีวิตหลายชั่วรุ่น"}, {"title": "เราช่วยรักษาโลกได้อย่างไร?", "text": "ปิดไฟเมื่อไม่ใช้ ใช้น้ำอย่างพอดี เดินหรือใช้รถร่วมกันเมื่อทำได้ แยกขยะ ลดของใช้ครั้งเดียว และดูแลต้นไม้ในชุมชน", "word": "การเปลี่ยนเล็ก ๆ หลายคนรวมกันมีพลัง"}, {"title": "พลังงานหมุนเวียนคืออะไร?", "text": "พลังงานแสงอาทิตย์ ลม และน้ำ เป็นแหล่งพลังงานที่เกิดทดแทนได้ตามธรรมชาติ การใช้พลังงานอย่างมีประสิทธิภาพช่วยลดการเผาเชื้อเพลิง", "word": "พลังงานหมุนเวียน = ใช้แล้วเกิดทดแทนได้"}, {"title": "อากาศกับภูมิอากาศต่างกันอย่างไร?", "text": "อากาศคือสิ่งที่เกิดขึ้นวันนี้หรือช่วงสั้น ๆ เช่น ฝนตกหรือร้อน ส่วนภูมิอากาศคือแบบแผนอากาศเฉลี่ยเป็นเวลาหลายสิบปี", "word": "Weather = อากาศ • Climate = ภูมิอากาศ"}, {"title": "ทำไมความหลากหลายทางชีวภาพสำคัญ?", "text": "ความหลากหลายของพืช สัตว์ และจุลินทรีย์ช่วยให้ระบบนิเวศแข็งแรง มีอาหาร ยา น้ำสะอาด และการผสมเกสร", "word": "ความหลากหลายทางชีวภาพ = ความหลากหลายของสิ่งมีชีวิต"}, {"title": "พลเมืองที่ดีของโลก", "text": "เรียนรู้จากหลักฐาน ถามคำถาม ใช้ทรัพยากรอย่างรับผิดชอบ และช่วยกันดูแลธรรมชาติ คือสิ่งที่เด็กทุกคนเริ่มทำได้ตั้งแต่วันนี้", "word": "Be kind. Be curious. Protect our planet."}, {"title": "ชั้นโอโซนช่วยอะไรเรา?", "text": "โอโซนในบรรยากาศชั้นบนช่วยดูดซับรังสีอัลตราไวโอเลตบางส่วนจากดวงอาทิตย์ จึงช่วยปกป้องสิ่งมีชีวิตบนโลก", "word": "O₃ = ก๊าซโอโซน"}, {"title": "ไนโตรเจนคือก๊าซอะไร?", "text": "ไนโตรเจน หรือ N₂ เป็นก๊าซที่มีมากที่สุดในอากาศ พืชต้องใช้ไนโตรเจนเพื่อเจริญเติบโต แต่ต้องได้รับผ่านดินหรือกระบวนการของจุลินทรีย์", "word": "N₂ อ่านว่า เอ็น-ทู"}, {"title": "น้ำหมุนเวียนอย่างไร?", "text": "น้ำระเหยเป็นไอ กลั่นตัวเป็นเมฆ ตกลงมาเป็นฝน และไหลกลับสู่แม่น้ำหรือทะเล กระบวนการนี้เรียกว่า วัฏจักรน้ำ", "word": "ระเหย • กลั่นตัว • ตกลงมา"}, {"title": "ดินเกิดขึ้นได้อย่างไร?", "text": "ดินเกิดจากหินที่ผุพังผสมกับซากสิ่งมีชีวิต ใช้เวลานานมากกว่าจะเกิดเป็นดินที่อุดมสมบูรณ์ เราจึงควรป้องกันการชะล้างหน้าดิน", "word": "หน้าดิน = ชั้นดินบนที่มีธาตุอาหารมาก"}, {"title": "ทำไมป่าไม้สำคัญ?", "text": "ป่าเป็นบ้านของสิ่งมีชีวิต ช่วยรักษาน้ำและดิน ดูดซับคาร์บอนไดออกไซด์ และช่วยปรับอุณหภูมิของพื้นที่", "word": "ป่าไม้เป็นส่วนสำคัญของระบบนิเวศ"}, {"title": "ปะการังเป็นพืชหรือสัตว์?", "text": "ปะการังเป็นสัตว์ขนาดเล็กที่อยู่รวมกันเป็นอาณานิคม แนวปะการังเป็นที่อยู่อาศัยของสัตว์ทะเลจำนวนมาก", "word": "อาณานิคม = สิ่งมีชีวิตจำนวนมากอยู่ร่วมกัน"}, {"title": "ไมโครพลาสติกคืออะไร?", "text": "ไมโครพลาสติกคือชิ้นพลาสติกขนาดเล็กมาก อาจมาจากพลาสติกชิ้นใหญ่ที่แตกตัว จึงควรลดการใช้พลาสติกและจัดการขยะให้ถูกต้อง", "word": "ไมโคร = เล็กมาก"}, {"title": "ทำไมไม่ควรเผาขยะ?", "text": "การเผาขยะกลางแจ้งอาจปล่อยควัน ฝุ่น และสารอันตรายเข้าสู่อากาศ วิธีที่ดีกว่าคือ ลดใช้ แยกขยะ ใช้ซ้ำ และส่งวัสดุที่เหมาะสมไปรีไซเคิล", "word": "อากาศสะอาดดีต่อปอดและสุขภาพ"}, {"title": "พลังงานแสงอาทิตย์ทำงานอย่างไร?", "text": "แผงโซลาร์เซลล์เปลี่ยนพลังงานจากแสงอาทิตย์เป็นพลังงานไฟฟ้า โดยไม่ต้องเผาเชื้อเพลิงขณะผลิตไฟฟ้า", "word": "Solar = แสงอาทิตย์"}, {"title": "ลมสร้างไฟฟ้าได้อย่างไร?", "text": "ลมทำให้ใบพัดกังหันหมุน จากนั้นเครื่องกำเนิดไฟฟ้าจะเปลี่ยนพลังงานการหมุนเป็นไฟฟ้า", "word": "กังหันลมใช้พลังงานการเคลื่อนที่ของอากาศ"}, {"title": "ประหยัดน้ำเริ่มอย่างไร?", "text": "ปิดก๊อกขณะแปรงฟัน ซ่อมก๊อกที่รั่ว ใช้น้ำล้างผักไปรดต้นไม้ และใช้น้ำเท่าที่จำเป็น เป็นวิธีง่าย ๆ ที่เด็กทำได้", "word": "น้ำสะอาดเป็นทรัพยากรที่มีคุณค่า"}, {"title": "สัตว์ใกล้สูญพันธุ์หมายถึงอะไร?", "text": "สัตว์ใกล้สูญพันธุ์คือสัตว์ที่มีจำนวนลดลงมากและเสี่ยงหายไปจากธรรมชาติ การรักษาถิ่นอาศัยช่วยให้สัตว์เหล่านี้มีโอกาสอยู่รอด", "word": "ถิ่นอาศัย = บ้านตามธรรมชาติของสิ่งมีชีวิต"}, {"title": "ชนิดพันธุ์ต่างถิ่นคืออะไร?", "text": "สิ่งมีชีวิตที่ถูกนำไปอยู่ในพื้นที่ใหม่อาจเพิ่มจำนวนจนรบกวนสิ่งมีชีวิตท้องถิ่นได้ เราไม่ควรปล่อยสัตว์เลี้ยงหรือพืชต่างถิ่นลงธรรมชาติ", "word": "ระบบนิเวศต้องการความสมดุล"}, {"title": "การผสมเกสรสำคัญอย่างไร?", "text": "ผึ้ง ผีเสื้อ นก และสัตว์บางชนิดช่วยพาละอองเกสรจากดอกหนึ่งไปยังอีกดอก ทำให้พืชสร้างเมล็ดและผลได้", "word": "ผู้ผสมเกสรช่วยสร้างอาหารให้เรา"}, {"title": "อุณหภูมิโลกสูงขึ้นเพราะอะไร?", "text": "เมื่อก๊าซเรือนกระจกเพิ่มขึ้น ความร้อนบางส่วนจะถูกกักไว้ในบรรยากาศมากขึ้น ทำให้อุณหภูมิเฉลี่ยของโลกสูงขึ้น", "word": "ปรากฏการณ์เรือนกระจกเป็นธรรมชาติ แต่ที่มากเกินไปทำให้โลกอุ่นขึ้น"}, {"title": "น้ำแข็งขั้วโลกละลายมีผลอย่างไร?", "text": "เมื่อน้ำแข็งบนแผ่นดินละลาย น้ำทะเลอาจสูงขึ้นและกระทบพื้นที่ชายฝั่ง รวมถึงสัตว์ที่พึ่งพาน้ำแข็งเป็นถิ่นอาศัย", "word": "ระดับน้ำทะเลเกี่ยวข้องกับภูมิอากาศ"}, {"title": "เราวัดอากาศด้วยอะไร?", "text": "เทอร์โมมิเตอร์ใช้วัดอุณหภูมิ เครื่องวัดฝนใช้วัดปริมาณฝน และเครื่องวัดความเร็วลมใช้วัดลม", "word": "ข้อมูลช่วยให้นักวิทยาศาสตร์เข้าใจอากาศ"}, {"title": "หลักฐานทางวิทยาศาสตร์คืออะไร?", "text": "นักวิทยาศาสตร์สังเกต วัด ทดลอง และเปรียบเทียบข้อมูล ก่อนสรุปคำตอบ ความคิดอาจเปลี่ยนได้เมื่อมีหลักฐานใหม่", "word": "วิทยาศาสตร์เรียนรู้จากหลักฐาน"}, {"title": "เด็กทำโครงงานสิ่งแวดล้อมได้อย่างไร?", "text": "ลองชั่งขยะของห้องเรียนหนึ่งสัปดาห์ แยกประเภท และวางแผนลดขยะ จากนั้นเปรียบเทียบผลก่อนและหลัง", "word": "ตั้งคำถาม • เก็บข้อมูล • ลงมือแก้ไข"}, {"title": "ทุกก้าวช่วยโลกได้", "text": "การพกขวดน้ำ ใช้กระดาษสองหน้า ปิดไฟ แยกขยะ และชวนคนรอบตัวร่วมมือ เป็นก้าวเล็ก ๆ ที่เกิดผลได้จริงเมื่อทำต่อเนื่อง", "word": "Every Step Makes You Better."}];
+let order=[],current=0,program=[],showNumbers=true,speed=330,dragIndex=null,timerId=null,timeLeft=0,timerStarted=false,collected=[];
+const labels={U:"ขึ้น",D:"ลง",L:"ซ้าย",R:"ขวา"};
+const directionIcon={U:"arrow-u",D:"arrow-d",L:"arrow-l",R:"arrow-r"};
+const home=document.getElementById("home"),game=document.getElementById("game"),board=document.getElementById("board"),programEl=document.getElementById("program");
+const AUDIO_FILES={music:"assets/audio/world3_jungle_adventure.wav",step:"assets/audio/step.wav",collect:"assets/audio/collect.wav",success:"assets/audio/success.wav",fail:"assets/audio/fail.wav",click:"assets/audio/click.wav"};
+let soundEnabled=true;
+const bgMusic=new Audio(AUDIO_FILES.music);bgMusic.loop=true;bgMusic.volume=.24;bgMusic.preload="auto";
+const sfxPool={};
+function playSfx(name,volume=1){
+ if(!soundEnabled)return;
+ try{
+  const a=(sfxPool[name]||(sfxPool[name]=new Audio(AUDIO_FILES[name]))).cloneNode();
+  a.volume=Math.max(0,Math.min(1,volume));a.play().catch(()=>{});
+ }catch(e){}
+}
+function startMusic(){if(!soundEnabled)return;bgMusic.play().catch(()=>{});}
+function stopMusic(){bgMusic.pause();}
+function setSoundEnabled(on){
+ soundEnabled=on;
+ const btn=document.getElementById("musicBtn"),label=btn?.querySelector(".music-label");
+ if(label)label.textContent=on?"ปิด":"เปิด";
+ if(btn)btn.classList.toggle("sound-off",!on);
+ if(on)startMusic();else stopMusic();
+}
+function unlockAudio(){
+ startMusic();
+ try{getCountdownAudio();getSampleAudio();}catch(e){}
+ document.removeEventListener("pointerdown",unlockAudio);
+ document.removeEventListener("touchstart",unlockAudio);
+}
+document.addEventListener("pointerdown",unlockAudio,{once:true,passive:true});
+document.addEventListener("touchstart",unlockAudio,{once:true,passive:true});
+document.addEventListener("visibilitychange",()=>{if(document.hidden)stopMusic();else if(soundEnabled&&!home.classList.contains("hidden"))startMusic()});
+
+function shuffle(a){for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a}
+function startGame(){
+ playSfx("click",.55);startMusic();
+ order=shuffle([...VERIFIED_MISSION_INDEXES]);
+ if(!order.length)return alert("ไม่พบด่านที่ผ่านการตรวจสอบ กรุณาเปิดไฟล์ใหม่ค่ะ");
+ current=0;program=[];collected=[];
+ home.classList.add("hidden");game.classList.remove("hidden");
+ render();resetTimer();
+}
+function m(){return MISSIONS[order[current]]}
+
+let sampleAudioCtx=null;
+function getSampleAudio(){
+ if(!sampleAudioCtx) sampleAudioCtx=new (window.AudioContext||window.webkitAudioContext)();
+ if(sampleAudioCtx.state==="suspended") sampleAudioCtx.resume();
+ return sampleAudioCtx;
+}
+function playSampleSound(index){
+ try{
+  const ctx=getSampleAudio();
+  const now=ctx.currentTime;
+  const notes=[523.25,659.25,783.99];
+  const osc=ctx.createOscillator();
+  const gain=ctx.createGain();
+  osc.type="triangle";
+  osc.frequency.setValueAtTime(notes[index%3],now);
+  osc.frequency.exponentialRampToValueAtTime(notes[index%3]*1.25,now+.16);
+  gain.gain.setValueAtTime(.0001,now);
+  gain.gain.exponentialRampToValueAtTime(.12,now+.02);
+  gain.gain.exponentialRampToValueAtTime(.0001,now+.24);
+  osc.connect(gain);gain.connect(ctx.destination);
+  osc.start(now);osc.stop(now+.25);
+ }catch(e){}
+}
+
+function checkpointName(type){
+ return type==="egg"?"ไข่ไดโนเสาร์":type==="fossil"?"ฟอสซิล":"ผลึกแร่";
+}
+function missionObjectiveText(){
+ const x=m();
+ const stars="★".repeat(x.difficulty||4)+"☆".repeat(5-(x.difficulty||4));
+ return `ภารกิจ: เก็บตัวอย่างตามลำดับ 1) ไข่ไดโนเสาร์ → 2) ฟอสซิล → 3) อำพัน แล้วจึงกลับค่ายปลอดภัย ห้ามเข้าค่ายก่อนเก็บครบ | ระดับ ${stars} | เวลา ${x.timeLimit} วินาที`;
+}
+function resetTimer(){
+ clearInterval(timerId);
+ timerId=null;
+ timerStarted=false;
+ timeLeft=m().timeLimit;
+ updateTimerDisplay();
+}
+
+let countdownAudioCtx=null;
+function getCountdownAudio(){
+  if(!countdownAudioCtx){
+    countdownAudioCtx=new (window.AudioContext||window.webkitAudioContext)();
+  }
+  if(countdownAudioCtx.state==="suspended") countdownAudioCtx.resume();
+  return countdownAudioCtx;
+}
+function playSoftTick(isFinalTen=false){
+  try{
+    const ctx=getCountdownAudio();
+    const now=ctx.currentTime;
+    const osc=ctx.createOscillator();
+    const gain=ctx.createGain();
+    osc.type="sine";
+    osc.frequency.setValueAtTime(isFinalTen?880:620,now);
+    gain.gain.setValueAtTime(0.0001,now);
+    gain.gain.exponentialRampToValueAtTime(isFinalTen?0.075:0.035,now+0.01);
+    gain.gain.exponentialRampToValueAtTime(0.0001,now+(isFinalTen?0.10:0.07));
+    osc.connect(gain);
+    gain.connect(ctx.destination);
+    osc.start(now);
+    osc.stop(now+(isFinalTen?0.11:0.08));
+  }catch(err){
+    console.warn("Countdown sound unavailable",err);
+  }
+}
+
+function startTimer(){
+ if(timerStarted)return;
+ timerStarted=true;
+ getCountdownAudio();
+ timerId=setInterval(()=>{
+  timeLeft--;
+  playSoftTick(timeLeft<=10);
+  updateTimerDisplay();
+  if(timeLeft<=0){
+   clearInterval(timerId);
+   timerId=null;
+   timerStarted=false;
+   fail("หมดเวลาแล้วค่ะ ลองวางแผนใหม่และใช้บล็อกทำซ้ำเพื่อลดจำนวนคำสั่ง");
+  }
+ },1000);
+}
+function updateTimerDisplay(){
+ const el=document.getElementById("timerText");
+ const box=document.getElementById("timerBox");
+ const hand=document.getElementById("clockHand");
+ if(!el||!box)return;
+ const safe=Math.max(timeLeft,0);
+ const minutes=String(Math.floor(safe/60)).padStart(2,"0");
+ const seconds=String(safe%60).padStart(2,"0");
+ el.textContent=`${minutes}:${seconds}`;
+ box.classList.toggle("danger",safe<=10&&timerStarted);
+ if(hand){
+  const total=Math.max(m().timeLimit,1);
+  hand.style.transform=`translateX(-50%) rotate(${((total-safe)/total)*360}deg)`;
+ }
+}
+
+function validateMissionData(ms){
+ const hazards=new Set([...(ms.obstacles||[]),...(ms.dinosaurs||[])]);
+ const checkpoints=ms.checkpoints||[];
+ const occupied=[
+  ["start",new Set([ms.start])],
+  ["goal",new Set([ms.goal])],
+  ["obstacles",new Set(ms.obstacles||[])],
+  ["dinosaurs",new Set(ms.dinosaurs||[])],
+  ["samples",new Set(checkpoints)]
+ ];
+ for(let a=0;a<occupied.length;a++){
+  for(let b=a+1;b<occupied.length;b++){
+   for(const v of occupied[a][1]){
+    if(occupied[b][1].has(v))return false;
+   }
+  }
+ }
+ let pos=ms.start,collected=0;
+ for(const cmd of ms.solution||[]){
+  const nxt=nextPos(pos,cmd);
+  if(nxt<0||hazards.has(nxt))return false;
+  pos=nxt;
+  if(checkpoints[collected]===pos)collected++;
+  else if(checkpoints.includes(pos)&&checkpoints.indexOf(pos)>collected)return false;
+ }
+ return pos===ms.goal&&collected===checkpoints.length;
+}
+const VERIFIED_MISSION_INDEXES=MISSIONS
+ .map((mission,index)=>validateMissionData(mission)?index:-1)
+ .filter(index=>index>=0);
+
+function randomMission(){
+ playSfx("click",.5);
+ let next=current;
+ if(order.length>1){
+   while(next===current) next=Math.floor(Math.random()*order.length);
+ }
+ current=next;
+ program=[];
+ collected=[];
+ render();
+ resetTimer();
+ const btn=document.getElementById("randomBtn");
+ const old=btn.innerHTML;
+ btn.innerHTML=`<img class="ui-icon" src="assets/ui/check.png" alt=""> ได้ด่าน ${String(m().id).padStart(2,"0")}`;
+ setTimeout(()=>btn.innerHTML=old,1000);
+}
+function render(pos=m().start){
+ board.innerHTML="";
+ for(let i=1;i<=42;i++){
+  const c=document.createElement("div");
+  c.className="cell";
+  if(showNumbers)c.innerHTML=`<span class="num">${i}</span>`;
+
+  if(m().obstacles.includes(i)){
+   const obstacleAssets=[
+   "assets/world3/environment/rocks/rock_a.png",
+   "assets/world3/environment/rocks/rock_b.png",
+   "assets/world3/environment/plants/fern_a.png",
+   "assets/world3/environment/plants/fern_b.png",
+   "assets/world3/environment/trees/tree_jungle_a.png",
+   "assets/world3/environment/trees/tree_jungle_b.png"
+  ];
+   const oi=m().obstacles.indexOf(i);
+   const src=obstacleAssets[(m().id+oi+i)%obstacleAssets.length];
+   c.innerHTML+=`<img class="asset-img obstacle scenery" src="${src}" alt="สิ่งกีดขวาง">`;
+  }
+
+  if(m().checkpoints.includes(i)&&!collected.includes(i)){
+   const ci=m().checkpoints.indexOf(i);
+   const typ=m().checkpointTypes[ci];
+   const src=typ==="egg"?"assets/world3/collectibles/egg_nest_green.png":typ==="fossil"?"assets/world3/collectibles/fossil_skull.png":"assets/world3/collectibles/fossil_ammonite.png";
+   c.innerHTML+=`<img class="asset-img collectible" src="${src}" alt="จุดเก็บตัวอย่าง"><span class="checkpoint-badge">${ci+1}</span>`;
+  }
+
+  if(m().dinosaurs.includes(i)){
+   const di=m().dinosaurs.indexOf(i);
+   const typ=m().dinoTypes[di];
+   const src=typ==="trex"?"assets/world3/dinosaurs/dinosaur_trex_boss.png":typ==="raptor"?"assets/world3/dinosaurs/dinosaur_raptor.png":typ==="triceratops"?"assets/world3/dinosaurs/dinosaur_triceratops.png":"assets/world3/dinosaurs/dinosaur_stegosaurus.png";
+   c.innerHTML+=`<img class="asset-img dinosaur" src="${src}" alt="ไดโนเสาร์">`;
+  }
+
+  if(i===m().goal)c.innerHTML+=`<img class="asset-img goal" src="assets/world3/camp/camp_tent.png" alt="ค่ายปลอดภัย">`;
+  if(i===pos)c.innerHTML+=`<img class="asset-img hero" src="assets/world3/characters/explorer/explorer_static.png" alt="นักสำรวจ">`;
+
+  board.appendChild(c);
+ }
+ document.getElementById("missionTitle").textContent=`FINAL DINO CHALLENGE • ด่านสุ่ม ${String(m().id).padStart(2,"0")}`;
+ document.getElementById("progress").textContent=`ด่านรหัส ${String(m().id).padStart(2,"0")} / 20`;
+ document.getElementById("missionObjective").innerHTML=missionObjectiveText();
+ renderProgram();
+}
+function renderProgram(){
+ programEl.innerHTML="";
+ if(!program.length)programEl.innerHTML='<div class="small" style="margin:auto;font-weight:900;color:#6d8aa3">แตะคำสั่งด้านขวาเพื่อเริ่มเขียนโปรแกรม</div>';
+ program.forEach((item,i)=>{
+  const b=document.createElement("div");
+  b.className="block"+(item.type==="repeat"?" repeat-block":"");
+  b.draggable=true;b.dataset.i=i;
+  const label=item.type==="repeat"?`<img class="block-icon" src="assets/ui/repeat.png" alt=""> ทำซ้ำ ${item.count} ครั้ง`:`<img class="block-icon" src="assets/ui/${directionIcon[item.cmd]}.png" alt=""> ${labels[item.cmd]}`;
+  b.innerHTML=`${label} <button class="del" aria-label="ลบ">×</button>`;
+  b.querySelector(".del").onclick=e=>{e.stopPropagation();program.splice(i,1);renderProgram()};
+  b.ondragstart=()=>dragIndex=i;
+  b.ondragover=e=>e.preventDefault();
+  b.ondrop=e=>{e.preventDefault();const x=program.splice(dragIndex,1)[0];program.splice(i,0,x);renderProgram()};
+  b.addEventListener("touchstart",()=>dragIndex=i,{passive:true});
+  b.addEventListener("touchend",e=>{
+   const t=document.elementFromPoint(e.changedTouches[0].clientX,e.changedTouches[0].clientY);
+   const target=t?.closest(".block");
+   if(target){const to=+target.dataset.i;if(to!==dragIndex){const x=program.splice(dragIndex,1)[0];program.splice(to,0,x);renderProgram()}}
+  },{passive:true});
+  programEl.appendChild(b);
+ });
+}
+document.querySelectorAll("[data-cmd]").forEach(b=>b.onclick=()=>{program.push({type:"move",cmd:b.dataset.cmd});renderProgram()});
+document.querySelectorAll("[data-repeat]").forEach(b=>b.onclick=()=>{
+ if(!program.some(x=>x.type==="move"))return alert("กรุณาใส่คำสั่งลูกศรก่อน แล้วจึงกดทำซ้ำค่ะ");
+ program.push({type:"repeat",count:+b.dataset.repeat});
+ renderProgram();
+});
+function expandedProgram(){
+ const result=[];
+ let previousMove=null;
+ for(const item of program){
+  if(item.type==="move"){result.push(item.cmd);previousMove=item.cmd}
+  else if(item.type==="repeat"){
+   if(!previousMove)throw new Error("repeat_without_command");
+   for(let n=1;n<item.count;n++)result.push(previousMove);
+  }
+ }
+ return result;
+}
+function nextPos(pos,cmd){let r=Math.floor((pos-1)/7),c=(pos-1)%7;if(cmd==="U")r--;if(cmd==="D")r++;if(cmd==="L")c--;if(cmd==="R")c++;return(r<0||r>5||c<0||c>6)?-1:r*7+c+1}
+function showCollectEffect(pos,index){
+ const cell=board.children[pos-1];
+ if(!cell)return;
+ const fx=document.createElement("div");
+ fx.className="collect-burst";
+ fx.innerHTML=`<span>เก็บตัวอย่าง ${index+1} สำเร็จ!</span>`;
+ cell.appendChild(fx);
+ setTimeout(()=>fx.remove(),760);
+}
+async function run(){
+ if(!program.length)return alert("กรุณาใส่คำสั่งก่อนค่ะ");
+ startTimer();
+ let commands;
+ try{commands=expandedProgram()}catch(e){return alert("บล็อกทำซ้ำต้องวางหลังคำสั่งลูกศรค่ะ")}
+ let pos=m().start;
+ collected=[];
+ render(pos);
+ for(const cmd of commands){
+  if(timeLeft<=0)return;
+  await new Promise(r=>setTimeout(r,speed));
+  const n=nextPos(pos,cmd);
+  if(n<0||m().obstacles.includes(n)||m().dinosaurs.includes(n))return fail("นักสำรวจชนสิ่งกีดขวางหรือเข้าใกล้ไดโนเสาร์เกินไป ลองวางแผนใหม่ค่ะ");
+  pos=n;
+  playSfx("step",.38);
+  const expectedIndex=collected.length;
+  if(m().checkpoints[expectedIndex]===pos){
+   collected.push(pos);
+   playSampleSound(expectedIndex);
+   playSfx("collect",.72);
+   render(pos);
+   showCollectEffect(pos,expectedIndex);
+  }else if(m().checkpoints.includes(pos)&&!collected.includes(pos)){
+   return fail("ผ่านจุดเก็บตัวอย่างผิดลำดับค่ะ ต้องเก็บหมายเลข 1 → 2 → 3 ตามลำดับ");
+  }
+  render(pos);
+ }
+ if(pos===m().goal&&collected.length===m().checkpoints.length){
+  clearInterval(timerId);timerId=null;timerStarted=false;
+  success();
+ }else if(pos===m().goal){
+  fail("ถึงค่ายแล้ว แต่ยังเก็บตัวอย่างไม่ครบค่ะ ต้องเก็บไข่ ฟอสซิล และอำพันตามลำดับก่อนกลับค่าย");
+ }else{
+  fail("นักสำรวจยังไปไม่ถึงค่าย ลองตรวจลำดับ จุดเลี้ยว และบล็อกทำซ้ำอีกครั้งค่ะ");
+ }
+}
+function modal(content){const box=document.getElementById("modalbox");box.innerHTML=content;document.getElementById("modal").classList.remove("hidden")}
+function closeModal(){document.getElementById("modal").classList.add("hidden");document.getElementById("modalbox").classList.remove("success-box")}
+function fail(msg){
+ playSfx("fail",.65);
+ clearInterval(timerId);timerId=null;timerStarted=false;
+ modal(`<h2><img class="ui-icon inline-icon" src="assets/world3/dinosaurs/dinosaur_trex_boss.png" alt=""> ลองอีกครั้ง</h2><p>${msg}</p><p>กดเริ่มใหม่แล้วเวลาจะกลับมาเต็มค่ะ</p><button onclick="retryMission()">เริ่มด่านนี้ใหม่</button>`);
+}
+function retryMission(){closeModal();program=[];collected=[];render();resetTimer()}
+
+let scienceAudioCtx=null;
+function playScienceDing(){
+ try{
+  if(!scienceAudioCtx)scienceAudioCtx=new (window.AudioContext||window.webkitAudioContext)();
+  if(scienceAudioCtx.state==="suspended")scienceAudioCtx.resume();
+  const ctx=scienceAudioCtx,now=ctx.currentTime;
+  [659.25,783.99].forEach((f,i)=>{
+   const o=ctx.createOscillator(),g=ctx.createGain();
+   o.type="sine";o.frequency.value=f;
+   g.gain.setValueAtTime(.0001,now+i*.09);
+   g.gain.exponentialRampToValueAtTime(.12,now+i*.09+.015);
+   g.gain.exponentialRampToValueAtTime(.0001,now+i*.09+.22);
+   o.connect(g);g.connect(ctx.destination);o.start(now+i*.09);o.stop(now+i*.09+.24);
+  });
+ }catch(e){}
+}
+function scienceCategory(title){
+ const t=String(title||"");
+ if(/ฟอสซิล|ไดโนเสาร์|นกเกี่ยวข้อง|สูญพันธุ์|บรรพชีวิน/.test(t))return "โลกและสิ่งมีชีวิตในอดีต";
+ if(/CO₂|O₂|มีเทน|โอโซน|ไนโตรเจน|บรรยากาศ|ภูมิอากาศ|อุณหภูมิ|น้ำแข็งขั้วโลก/.test(t))return "อากาศ ภูมิอากาศ และโลก";
+ if(/รีไซเคิล|ขยะ|พลาสติก|พลังงาน|ประหยัดน้ำ|ประหยัดไฟ|เชื้อเพลิง/.test(t))return "สิ่งแวดล้อมและการใช้ทรัพยากร";
+ if(/ระบบนิเวศ|ห่วงโซ่อาหาร|ความหลากหลาย|ป่าไม้|ปะการัง|ผสมเกสร|สัตว์ใกล้สูญพันธุ์/.test(t))return "ชีวิตและระบบนิเวศ";
+ if(/หลักฐาน|นักวิทยาศาสตร์|วัดอากาศ|โครงงาน/.test(t))return "กระบวนการทางวิทยาศาสตร์";
+ return "วิทยาศาสตร์รอบตัว";
+}
+
+function success(){
+ playSfx("success",.75);
+ playScienceDing();
+ const fact=SCIENCE[Math.floor(Math.random()*SCIENCE.length)];
+ const category=scienceCategory(fact.title);
+ const box=document.getElementById("modalbox");
+ box.classList.add("success-box");
+ modal(`<div class="science-modal">
+ <div class="success-stars"><img src="assets/ui/star.png" alt="ดาว"><img src="assets/ui/star.png" alt="ดาว"><img src="assets/ui/star.png" alt="ดาว"></div>
+ <div class="success-heroes"><img src="assets/world3/characters/explorer/explorer_static.png" alt="นักสำรวจ"><img src="assets/world3/camp/camp_tent.png" alt="ค่ายปลอดภัย"><img src="assets/world3/dinosaurs/dinosaur_trex_boss.png" alt="ไดโนเสาร์"></div><h1 class="success-title">MISSION COMPLETE!</h1>
+ <p><b>ยอดเยี่ยมมาก!</b> เก็บตัวอย่างครบตามลำดับและกลับถึงค่ายปลอดภัย เหลือเวลา <b>${timeLeft} วินาที</b></p>
+ <div class="science-heading">
+   <span class="main"><img class="ui-icon inline-icon" src="assets/ui/science.png" alt=""> วิทยาศาสตร์น่ารู้</span>
+   <span class="grade">สำหรับเด็กประถมศึกษาปีที่ 1–6</span>
+ </div>
+ <div class="science-category">หัวข้อ: ${category}</div>
+ <div class="science-card-static">
+   <h3>${fact.title}</h3>
+   <p>${fact.text}</p>
+   <div class="science-word"><img class="ui-icon inline-icon" src="assets/ui/book.png" alt=""> คำสำคัญ: ${fact.word}</div>
+ </div>
+ <div class="science-actions">
+   <button onclick="nextRandomMission()"><img class="ui-icon" src="assets/ui/shuffle.png" alt=""> สุ่มภารกิจใหม่</button>
+   <button onclick="closeModal()" style="background:#2cab55">ดูโปรแกรมของฉัน</button>
+ </div>
+ </div>`);
+}
+function nextRandomMission(){closeModal();randomMission()}
+function nextMission(){closeModal();current=(current+1)%order.length;program=[];collected=[];render();resetTimer()}
+function restart(){closeModal();startGame()}
+document.getElementById("startBtn").onclick=startGame;
+document.getElementById("randomBtn").onclick=randomMission;
+document.getElementById("homeBtn").onclick=()=>{playSfx("click",.5);clearInterval(timerId);timerId=null;game.classList.add("hidden");home.classList.remove("hidden")};
+document.getElementById("runBtn").onclick=run;document.getElementById("undoBtn").onclick=()=>{program.pop();renderProgram()};document.getElementById("clearBtn").onclick=()=>{program=[];renderProgram()};
+document.getElementById("hintBtn").onclick=()=>{
+ const sol=m().solution,groups=[];let last=null,count=0;
+ for(const c of sol){if(c===last)count++;else{if(last)groups.push(`${labels[last]} ${count} ก้าว`);last=c;count=1}}
+ if(last)groups.push(`${labels[last]} ${count} ก้าว`);
+ alert("คำใบ้การวางแผน:\nแบ่งเส้นทางออกเป็นช่วง ๆ และมองหาช่วงที่เดินทิศเดิมหลายก้าวเพื่อใช้บล็อกทำซ้ำ\n\nโครงสร้างเส้นทาง: "+groups.join(" → "));
+};
+document.getElementById("exitBtn").onclick=()=>{window.location.href="../index.html"};
+document.getElementById("settingsBtn").onclick=()=>document.getElementById("settingsModal").classList.remove("hidden");
+document.getElementById("closeSettings").onclick=()=>document.getElementById("settingsModal").classList.add("hidden");
+document.getElementById("numberToggle").onclick=e=>{showNumbers=!showNumbers;e.target.textContent=showNumbers?"เปิด":"ปิด";if(!game.classList.contains("hidden"))render()};
+document.getElementById("speedToggle").onclick=e=>{speed=speed===330?180:330;e.target.textContent=speed===330?"ปกติ":"เร็ว"};
+document.getElementById("musicBtn").onclick=()=>setSoundEnabled(!soundEnabled);
+
+document.addEventListener("click",e=>{if(e.target.closest("button")&&!e.target.closest("#musicBtn"))playSfx("click",.28)});
+</script>
+<div style="display:none" data-build="WORLD3-V24-IPAD-AUDIO-READY"></div>
+</body></html>
