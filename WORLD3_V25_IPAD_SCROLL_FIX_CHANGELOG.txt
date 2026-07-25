@@ -1,0 +1,13 @@
+WORLD 3 V25 — iPad Coding Area Scroll Fix
+
+แก้ไขเฉพาะ:
+- เปิดให้ใช้นิ้วปัดขึ้น-ลงภายใน Coding Area บน iPad/Safari
+- รองรับ momentum scrolling
+- เพิ่มการแสดง scrollbar เมื่อระบบอนุญาต
+
+ไม่ได้แก้ไข:
+- Layout หรือขนาด Coding Area
+- ตำแหน่ง/ขนาดปุ่ม
+- ภารกิจทั้ง 20 ด่าน
+- ระบบเสียง
+- ตัวละคร รูปภาพ หรือระบบเกม

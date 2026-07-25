@@ -183,6 +183,34 @@ radial-gradient(ellipse at 94% 86%,#2e9140 0 60px,transparent 62px)}
   .coding{padding:4px 10px 5px}.coding h3{font-size:13px}.program{height:67px}.block{height:45px;min-width:116px;font-size:15px}.controls{transform:translateY(-4px)}.control{padding:7px 14px;font-size:14px}
 }
 </style>
+<style>
+/* ============================================================
+   WORLD 3 V25 — iPad Coding Area scroll fix
+   Scope: touch scrolling only; no layout, sizing, controls,
+   audio, assets, or mission logic changes.
+   ============================================================ */
+.program{
+  touch-action:pan-y!important;
+  -webkit-overflow-scrolling:touch;
+  overscroll-behavior-y:contain;
+  scrollbar-gutter:stable;
+}
+.program .block{
+  touch-action:pan-y;
+}
+.program::-webkit-scrollbar{
+  width:10px;
+}
+.program::-webkit-scrollbar-track{
+  background:#e8f2fc;
+  border-radius:999px;
+}
+.program::-webkit-scrollbar-thumb{
+  background:#7fa9cc;
+  border-radius:999px;
+  border:2px solid #e8f2fc;
+}
+</style>
 </head>
 <body>
 <section id="home" class="screen"><div class="home-approved"><img src="world3-home-approved.png" alt="Step Up Coding Studio World 3 Dinosaur Escape"><button class="home-hotspot hs-start" id="startBtn" aria-label="Start">START</button><button class="home-hotspot hs-settings" id="settingsBtn" aria-label="Settings">SETTINGS</button><button class="home-hotspot hs-exit" id="exitBtn" aria-label="Exit">EXIT</button></div></section>
