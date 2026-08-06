@@ -182,13 +182,131 @@ radial-gradient(ellipse at 94% 86%,#2e9140 0 60px,transparent 62px)}
   .palette{padding:6px}.palette h3{font-size:13px}.cmd{min-height:44px;margin:2px 0;padding:5px;font-size:16px}.cmd .arrow{font-size:43px}.arrow-img{width:43px;height:43px}.command-icon{width:28px;height:28px}
   .coding{padding:4px 10px 5px}.coding h3{font-size:13px}.program{height:67px}.block{height:45px;min-width:116px;font-size:15px}.controls{transform:translateY(-4px)}.control{padding:7px 14px;font-size:14px}
 }
+
+/* ============================================================
+   WORLD 3 V34 — Command palette centering polish
+   Scope: CSS layout only. No game logic, missions, audio,
+   assets, animation, or controls changed.
+   ============================================================ */
+.palette .cmd{
+  width:100%;
+  min-width:0;
+  display:grid!important;
+  grid-template-columns:58px max-content!important;
+  align-items:center!important;
+  justify-content:center!important;
+  justify-items:center!important;
+  column-gap:10px!important;
+  padding:6px 12px!important;
+  overflow:hidden!important;
+  white-space:nowrap!important;
+}
+.palette .cmd .arrow-img,
+.palette .cmd .command-icon{
+  display:block!important;
+  width:48px!important;
+  height:48px!important;
+  min-width:0!important;
+  max-width:48px!important;
+  max-height:48px!important;
+  object-fit:contain!important;
+  margin:0!important;
+}
+.palette .cmd span{
+  min-width:0!important;
+  margin:0!important;
+  text-align:center!important;
+  line-height:1.1!important;
+  white-space:nowrap!important;
+}
+
+/* Compact tablet landscape: Xiaomi Pad 8 and iPad */
+@media (orientation:landscape) and (max-width:1180px) and (max-height:850px){
+  .palette .cmd{
+    grid-template-columns:42px max-content!important;
+    column-gap:7px!important;
+    padding:5px 8px!important;
+    font-size:15px!important;
+  }
+  .palette .cmd .arrow-img,
+  .palette .cmd .command-icon{
+    width:36px!important;
+    height:36px!important;
+    max-width:36px!important;
+    max-height:36px!important;
+  }
+}
+
+/* Tablet portrait */
+@media (orientation:portrait) and (min-width:700px){
+  .palette .cmd{
+    grid-template-columns:40px max-content!important;
+    column-gap:6px!important;
+    padding:5px 8px!important;
+  }
+  .palette .cmd .arrow-img,
+  .palette .cmd .command-icon{
+    width:34px!important;
+    height:34px!important;
+    max-width:34px!important;
+    max-height:34px!important;
+  }
+}
+
+</style>
+<style>
+/* ============================================================
+   WORLD 3 V25 — iPad Coding Area scroll fix
+   Scope: touch scrolling only; no layout, sizing, controls,
+   audio, assets, or mission logic changes.
+   ============================================================ */
+.program{
+  touch-action:pan-y!important;
+  -webkit-overflow-scrolling:touch;
+  overscroll-behavior-y:contain;
+  scrollbar-gutter:stable;
+}
+.program .block{
+  touch-action:pan-y;
+}
+.program::-webkit-scrollbar{
+  width:10px;
+}
+.program::-webkit-scrollbar-track{
+  background:#e8f2fc;
+  border-radius:999px;
+}
+.program::-webkit-scrollbar-thumb{
+  background:#7fa9cc;
+  border-radius:999px;
+  border:2px solid #e8f2fc;
+}
+</style>
+
+<style>
+.home-approved:after{content:"THE GREAT SCIENCE ADVENTURE";position:absolute;left:50%;bottom:7%;transform:translateX(-50%);background:rgba(13,73,55,.88);color:#fff;padding:10px 22px;border-radius:999px;font-weight:1000;letter-spacing:.4px;pointer-events:none}
+.finale-wrap{text-align:center;padding:10px}.finale-art{display:flex;justify-content:center;align-items:end;gap:18px}.finale-art img{height:92px;max-width:28%;object-fit:contain}.finale-text{min-height:145px;display:flex;align-items:center;justify-content:center;font-size:clamp(22px,4vw,36px);font-weight:1000;line-height:1.45;color:#174d3d;padding:18px}.finale-logo{padding:24px 10px}.finale-logo div{font-size:clamp(22px,4vw,36px);font-weight:1000;color:#164d9d}.finale-logo strong{display:block;font-size:clamp(26px,5vw,46px);margin:18px 0;color:#25712b}.finale-logo p{font-size:18px}.finale-btn{min-width:190px}.timer-box{min-width:150px}.timer-box #timerText{font-size:14px}
+
+/* V31 — challenge balance and cinematic finale */
+.finale-wrap{position:relative;overflow:hidden;border-radius:24px;background:radial-gradient(circle at 50% 20%,#fff8c9 0,#dff4ff 35%,#173c63 100%);min-height:520px;padding:28px!important;color:#fff}
+.finale-wrap:before{content:"";position:absolute;inset:0;background:linear-gradient(180deg,transparent 40%,rgba(0,0,0,.38));pointer-events:none}
+.finale-art,.finale-text,.finale-logo,.finale-btn{position:relative;z-index:2}
+.finale-art{min-height:135px}.finale-art img{height:120px!important;filter:drop-shadow(0 10px 8px #0008);animation:finaleFloat 3s ease-in-out infinite}.finale-art img:nth-child(2){animation-delay:.35s}.finale-art img:nth-child(3){animation-delay:.7s}
+.finale-text{color:#fff!important;text-shadow:0 3px 12px #000;font-size:clamp(24px,4.2vw,40px)!important;opacity:0;transform:translateY(18px);transition:1.2s ease}
+.finale-text.show{opacity:1;transform:translateY(0)}
+.finale-logo{color:#fff!important;text-shadow:0 3px 14px #000;animation:finaleRise 1.2s ease both}.finale-logo div,.finale-logo strong,.finale-logo p{color:#fff!important}.finale-logo strong{font-size:clamp(32px,6vw,58px)!important}
+.finale-spark{position:absolute;z-index:1;font-size:28px;animation:sparkRise 3.2s linear infinite;opacity:.85}
+@keyframes finaleFloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}
+@keyframes finaleRise{from{opacity:0;transform:scale(.88) translateY(20px)}to{opacity:1;transform:none}}
+@keyframes sparkRise{0%{transform:translateY(80px) scale(.5);opacity:0}30%{opacity:1}100%{transform:translateY(-430px) scale(1.4);opacity:0}}
+@media(max-width:700px){.finale-wrap{min-height:470px;padding:18px!important}.finale-art img{height:88px!important}}
 </style>
 </head>
 <body>
 <section id="home" class="screen"><div class="home-approved"><img src="world3-home-approved.png" alt="Step Up Coding Studio World 3 Dinosaur Escape"><button class="home-hotspot hs-start" id="startBtn" aria-label="Start">START</button><button class="home-hotspot hs-settings" id="settingsBtn" aria-label="Settings">SETTINGS</button><button class="home-hotspot hs-exit" id="exitBtn" aria-label="Exit">EXIT</button></div></section>
 <section id="game" class="screen hidden">
- <div class="topbar"><div><small>STEP UP CODING STUDIO</small><h2><img class="ui-icon title-dino" src="assets/world3/dinosaurs/dinosaur_trex_boss.png" alt=""> WORLD 3 : DINOSAUR ESCAPE</h2></div><div class="timer-box" id="timerBox"><div class="clock-wrap"><div class="clock-hand" id="clockHand"></div></div><span id="timerText">--:--</span></div><button class="topbtn random-btn" id="randomBtn"><img class="ui-icon" src="assets/ui/shuffle.png" alt=""> สุ่มด่าน</button><button class="topbtn" id="homeBtn"><img class="ui-icon" src="assets/ui/home.png" alt=""> HOME</button><button class="topbtn" id="musicBtn"><img class="ui-icon" src="assets/ui/music.png" alt=""> <span class="music-label">ปิด</span></button></div>
- <div class="info"><span><img class="ui-icon inline-icon" src="assets/ui/dice.png" alt=""> ครูกด “สุ่มด่าน” เพื่อเลือกโจทย์ใดก็ได้จากทั้งหมด 20 ด่าน</span><span id="progress">ภารกิจ 1 / 20</span></div><div class="objective" id="missionObjective"><img class="ui-icon inline-icon" src="assets/ui/target.png" alt=""> โจทย์: กำลังเตรียมภารกิจ…</div>
+ <div class="topbar"><div><small>STEP UP CODING STUDIO</small><h2><img class="ui-icon title-dino" src="assets/world3/dinosaurs/dinosaur_trex_boss.png" alt=""> WORLD 3 : THE GREAT SCIENCE ADVENTURE</h2></div><div class="timer-box" id="timerBox"><div class="clock-wrap"><div class="clock-hand" id="clockHand"></div></div><span id="timerText">--:--</span></div><button class="topbtn random-btn" id="randomBtn"><img class="ui-icon" src="assets/ui/shuffle.png" alt=""> สุ่มด่าน</button><button class="topbtn" id="homeBtn"><img class="ui-icon" src="assets/ui/home.png" alt=""> HOME</button><button class="topbtn" id="musicBtn"><img class="ui-icon" src="assets/ui/music.png" alt=""> <span class="music-label">ปิด</span></button></div>
+ <div class="info"><span><img class="ui-icon inline-icon" src="assets/ui/dice.png" alt=""> ออกสำรวจทีละภารกิจ • ไม่จับเวลา • เรียนรู้ Coding และวิทยาศาสตร์ไปพร้อมกัน</span><span id="progress">ภารกิจ 1 / 20</span></div><div class="objective" id="missionObjective"><img class="ui-icon inline-icon" src="assets/ui/target.png" alt=""> โจทย์: กำลังเตรียมภารกิจ…</div>
  <div class="playrow">
   <section class="stage"><div class="stagehead" id="missionTitle">ESCAPE MISSION</div><div class="board" id="board"></div></section>
   <aside class="palette"><h3><img class="ui-icon inline-icon" src="assets/ui/toolbox.png" alt=""> Command Palette</h3><button class="cmd move" data-cmd="U"><img class="arrow-img" src="assets/ui/arrow-u.png" alt="ขึ้น"><span>ขึ้น</span></button><button class="cmd move" data-cmd="D"><img class="arrow-img" src="assets/ui/arrow-d.png" alt="ลง"><span>ลง</span></button><button class="cmd turn" data-cmd="L"><img class="arrow-img" src="assets/ui/arrow-l.png" alt="ซ้าย"><span>ซ้าย</span></button><button class="cmd turn" data-cmd="R"><img class="arrow-img" src="assets/ui/arrow-r.png" alt="ขวา"><span>ขวา</span></button><button class="cmd repeat" data-repeat="2"><img class="ui-icon command-icon" src="assets/ui/repeat.png" alt=""> ทำซ้ำ 2</button><button class="cmd repeat" data-repeat="3"><img class="ui-icon command-icon" src="assets/ui/repeat.png" alt=""> ทำซ้ำ 3</button></aside>
@@ -200,8 +318,8 @@ radial-gradient(ellipse at 94% 86%,#2e9140 0 60px,transparent 62px)}
 <div id="modal" class="modal hidden"><div id="modalbox" class="modalbox"></div></div>
 
 <script>
-const MISSIONS=[{"id":1,"start":36,"goal":7,"obstacles":[10,11,13,14,23,24,25,26,29,30,32],"solution":["R","R","R","R","R","U","U","U","L","L","L","L","U","U","R","R","R","R","R"],"checkpoints":[41,18,2],"checkpointTypes":["egg","fossil","amber"],"dinosaurs":[12,22],"dinoTypes":["raptor","triceratops"],"factIndex":0,"objective":"เด็ก ๆ ช่วยนักสำรวจเก็บตัวอย่างให้ครบตามลำดับ 1) ไข่ไดโนเสาร์ 2) ฟอสซิล 3) อำพัน แล้วจึงกลับไปยังค่ายปลอดภัย ห้ามเข้าค่ายก่อนเก็บตัวอย่างครบ","difficulty":4,"timeLimit":60},{"id":2,"start":7,"goal":38,"obstacles":[10,11,12,14,17,19,20,22,31,33,34,36],"solution":["L","L","L","L","L","D","D","D","R","R","R","R","R","D","D","L","L","L","L"],"checkpoints":[2,25,35],"checkpointTypes":["egg","fossil","amber"],"dinosaurs":[21,30],"dinoTypes":["triceratops","stegosaurus"],"factIndex":1,"objective":"เด็ก ๆ ช่วยนักสำรวจเก็บตัวอย่างให้ครบตามลำดับ 1) ไข่ไดโนเสาร์ 2) ฟอสซิล 3) อำพัน แล้วจึงกลับไปยังค่ายปลอดภัย ห้ามเข้าค่ายก่อนเก็บตัวอย่างครบ","difficulty":4,"timeLimit":60},{"id":3,"start":39,"goal":1,"obstacles":[2,3,4,5,6,9,16,20,26,36,37,40,41],"solution":["U","U","U","U","R","R","R","D","D","D","L","L","L","L","L","L","U","U","U","U"],"checkpoints":[12,35,30],"checkpointTypes":["egg","fossil","amber"],"dinosaurs":[10,27],"dinoTypes":["stegosaurus","trex"],"factIndex":2,"objective":"เด็ก ๆ ช่วยนักสำรวจเก็บตัวอย่างให้ครบตามลำดับ 1) ไข่ไดโนเสาร์ 2) ฟอสซิล 3) อำพัน แล้วจึงกลับไปยังค่ายปลอดภัย ห้ามเข้าค่ายก่อนเก็บตัวอย่างครบ","difficulty":4,"timeLimit":60},{"id":4,"start":1,"goal":21,"obstacles":[8,9,10,11,15,25,26,29,40,41],"solution":["R","R","R","R","R","D","D","D","D","L","L","L","L","U","U","R","R","R","R","R"],"checkpoints":[6,33,16],"checkpointTypes":["egg","fossil","amber"],"dinosaurs":[7,37],"dinoTypes":["trex","raptor"],"factIndex":3,"objective":"เด็ก ๆ ช่วยนักสำรวจเก็บตัวอย่างให้ครบตามลำดับ 1) ไข่ไดโนเสาร์ 2) ฟอสซิล 3) อำพัน แล้วจึงกลับไปยังค่ายปลอดภัย ห้ามเข้าค่ายก่อนเก็บตัวอย่างครบ","difficulty":4,"timeLimit":60},{"id":5,"start":42,"goal":34,"obstacles":[1,2,8,11,14,23,26,32,33,40,41],"solution":["U","U","U","L","L","L","L","U","U","R","R","R","D","D","D","D"],"checkpoints":[20,10,6],"checkpointTypes":["egg","fossil","amber"],"dinosaurs":[7,39],"dinoTypes":["raptor","triceratops"],"factIndex":4,"objective":"เด็ก ๆ ช่วยนักสำรวจเก็บตัวอย่างให้ครบตามลำดับ 1) ไข่ไดโนเสาร์ 2) ฟอสซิล 3) อำพัน แล้วจึงกลับไปยังค่ายปลอดภัย ห้ามเข้าค่ายก่อนเก็บตัวอย่างครบ","difficulty":4,"timeLimit":60},{"id":6,"start":29,"goal":27,"obstacles":[1,2,3,4,8,15,17,18,22,37,39,40],"solution":["R","R","R","R","R","R","U","U","U","L","L","L","L","L","D","D","R","R","R","R"],"checkpoints":[34,13,16],"checkpointTypes":["egg","fossil","amber"],"dinosaurs":[36,38],"dinoTypes":["triceratops","stegosaurus"],"factIndex":5,"objective":"เด็ก ๆ ช่วยนักสำรวจเก็บตัวอย่างให้ครบตามลำดับ 1) ไข่ไดโนเสาร์ 2) ฟอสซิล 3) อำพัน แล้วจึงกลับไปยังค่ายปลอดภัย ห้ามเข้าค่ายก่อนเก็บตัวอย่างครบ","difficulty":4,"timeLimit":60},{"id":7,"start":2,"goal":4,"obstacles":[1,5,6,7,10,12,13,14,15,21,22,28,42],"solution":["D","D","D","D","D","R","R","R","R","U","U","U","L","L","U","U"],"checkpoints":[37,41,20],"checkpointTypes":["egg","fossil","amber"],"dinosaurs":[8,24],"dinoTypes":["stegosaurus","trex"],"factIndex":6,"objective":"เด็ก ๆ ช่วยนักสำรวจเก็บตัวอย่างให้ครบตามลำดับ 1) ไข่ไดโนเสาร์ 2) ฟอสซิล 3) อำพัน แล้วจึงกลับไปยังค่ายปลอดภัย ห้ามเข้าค่ายก่อนเก็บตัวอย่างครบ","difficulty":5,"timeLimit":75},{"id":8,"start":41,"goal":4,"obstacles":[2,7,14,17,19,26,28,33,40,42],"solution":["U","U","U","U","L","L","L","L","L","D","D","D","R","R","R","U","U","U","U"],"checkpoints":[13,8,29],"checkpointTypes":["egg","fossil","amber"],"dinosaurs":[3,37],"dinoTypes":["trex","raptor"],"factIndex":7,"objective":"เด็ก ๆ ช่วยนักสำรวจเก็บตัวอย่างให้ครบตามลำดับ 1) ไข่ไดโนเสาร์ 2) ฟอสซิล 3) อำพัน แล้วจึงกลับไปยังค่ายปลอดภัย ห้ามเข้าค่ายก่อนเก็บตัวอย่างครบ","difficulty":5,"timeLimit":75},{"id":9,"start":4,"goal":37,"obstacles":[1,3,5,8,17,19,20,26,27,38,39],"solution":["D","D","D","D","R","R","R","U","U","U","L","L","L","L","L","D","D","D","D"],"checkpoints":[32,35,14],"checkpointTypes":["egg","fossil","amber"],"dinosaurs":[7,24,29],"dinoTypes":["raptor","triceratops","stegosaurus"],"factIndex":8,"objective":"เด็ก ๆ ช่วยนักสำรวจเก็บตัวอย่างให้ครบตามลำดับ 1) ไข่ไดโนเสาร์ 2) ฟอสซิล 3) อำพัน แล้วจึงกลับไปยังค่ายปลอดภัย ห้ามเข้าค่ายก่อนเก็บตัวอย่างครบ","difficulty":5,"timeLimit":75},{"id":10,"start":38,"goal":29,"obstacles":[9,10,11,12,16,23,32,33,35,39,40,42],"solution":["U","U","U","R","R","R","R","U","U","L","L","L","L","L","L","D","D","D","D"],"checkpoints":[17,21,7],"checkpointTypes":["egg","fossil","amber"],"dinosaurs":[26,28,37],"dinoTypes":["triceratops","stegosaurus","trex"],"factIndex":9,"objective":"เด็ก ๆ ช่วยนักสำรวจเก็บตัวอย่างให้ครบตามลำดับ 1) ไข่ไดโนเสาร์ 2) ฟอสซิล 3) อำพัน แล้วจึงกลับไปยังค่ายปลอดภัย ห้ามเข้าค่ายก่อนเก็บตัวอย่างครบ","difficulty":5,"timeLimit":75},{"id":11,"start":1,"goal":10,"obstacles":[2,3,6,9,11,18,20,29,30,32,34,36,37],"solution":["D","D","D","R","R","R","R","R","R","D","D","L","L","L","L","U","U","U","U"],"checkpoints":[22,28,42],"checkpointTypes":["egg","fossil","amber"],"dinosaurs":[12,14,21],"dinoTypes":["stegosaurus","trex","raptor"],"factIndex":10,"objective":"เด็ก ๆ ช่วยนักสำรวจเก็บตัวอย่างให้ครบตามลำดับ 1) ไข่ไดโนเสาร์ 2) ฟอสซิล 3) อำพัน แล้วจึงกลับไปยังค่ายปลอดภัย ห้ามเข้าค่ายก่อนเก็บตัวอย่างครบ","difficulty":5,"timeLimit":75},{"id":12,"start":42,"goal":23,"obstacles":[3,4,5,6,13,21,27,28,33,34],"solution":["L","L","L","L","L","L","U","U","U","U","R","R","R","R","D","D","L","L","L"],"checkpoints":[36,8,12],"checkpointTypes":["egg","fossil","amber"],"dinosaurs":[1,17,18],"dinoTypes":["trex","raptor","triceratops"],"factIndex":11,"objective":"เด็ก ๆ ช่วยนักสำรวจเก็บตัวอย่างให้ครบตามลำดับ 1) ไข่ไดโนเสาร์ 2) ฟอสซิล 3) อำพัน แล้วจึงกลับไปยังค่ายปลอดภัย ห้ามเข้าค่ายก่อนเก็บตัวอย่างครบ","difficulty":5,"timeLimit":75},{"id":13,"start":30,"goal":38,"obstacles":[1,8,11,12,15,17,22,33,36,39,40],"solution":["U","U","U","U","R","R","R","R","R","D","D","D","L","L","L","L","D","D"],"checkpoints":[2,7,28],"checkpointTypes":["egg","fossil","amber"],"dinosaurs":[10,29,35],"dinoTypes":["raptor","triceratops","stegosaurus"],"factIndex":12,"objective":"เด็ก ๆ ช่วยนักสำรวจเก็บตัวอย่างให้ครบตามลำดับ 1) ไข่ไดโนเสาร์ 2) ฟอสซิล 3) อำพัน แล้วจึงกลับไปยังค่ายปลอดภัย ห้ามเข้าค่ายก่อนเก็บตัวอย่างครบ","difficulty":5,"timeLimit":75},{"id":14,"start":14,"goal":16,"obstacles":[2,4,5,20,21,25,27,28,32,34,35,42],"solution":["L","L","L","L","L","L","D","D","D","D","R","R","R","R","U","U","U","L","L","L"],"checkpoints":[8,36,40],"checkpointTypes":["egg","fossil","amber"],"dinosaurs":[3,6,23],"dinoTypes":["triceratops","stegosaurus","trex"],"factIndex":13,"objective":"เด็ก ๆ ช่วยนักสำรวจเก็บตัวอย่างให้ครบตามลำดับ 1) ไข่ไดโนเสาร์ 2) ฟอสซิล 3) อำพัน แล้วจึงกลับไปยังค่ายปลอดภัย ห้ามเข้าค่ายก่อนเก็บตัวอย่างครบ","difficulty":5,"timeLimit":75},{"id":15,"start":36,"goal":31,"obstacles":[2,7,8,9,11,12,14,21,28,39,40,41,42],"solution":["U","U","U","R","R","R","R","R","U","U","L","L","L","D","D","D","D"],"checkpoints":[15,20,6],"checkpointTypes":["egg","fossil","amber"],"dinosaurs":[1,33,37],"dinoTypes":["stegosaurus","trex","raptor"],"factIndex":14,"objective":"เด็ก ๆ ช่วยนักสำรวจเก็บตัวอย่างให้ครบตามลำดับ 1) ไข่ไดโนเสาร์ 2) ฟอสซิล 3) อำพัน แล้วจึงกลับไปยังค่ายปลอดภัย ห้ามเข้าค่ายก่อนเก็บตัวอย่างครบ","difficulty":5,"timeLimit":90},{"id":16,"start":6,"goal":39,"obstacles":[2,3,7,12,14,16,23,24,40,42],"solution":["D","D","D","D","L","L","L","L","L","U","U","U","R","R","R","D","D","D","D"],"checkpoints":[34,29,8],"checkpointTypes":["egg","fossil","amber"],"dinosaurs":[1,19,41],"dinoTypes":["trex","raptor","triceratops"],"factIndex":15,"objective":"เด็ก ๆ ช่วยนักสำรวจเก็บตัวอย่างให้ครบตามลำดับ 1) ไข่ไดโนเสาร์ 2) ฟอสซิล 3) อำพัน แล้วจึงกลับไปยังค่ายปลอดภัย ห้ามเข้าค่ายก่อนเก็บตัวอย่างครบ","difficulty":5,"timeLimit":90},{"id":17,"start":39,"goal":27,"obstacles":[8,11,15,18,19,20,30,32,33,34,36],"solution":["R","R","R","U","U","U","U","U","L","L","L","L","L","D","D","D","R","R","R","R"],"checkpoints":[42,7,2],"checkpointTypes":["egg","fossil","amber"],"dinosaurs":[12,22,29],"dinoTypes":["raptor","triceratops","stegosaurus"],"factIndex":16,"objective":"เด็ก ๆ ช่วยนักสำรวจเก็บตัวอย่างให้ครบตามลำดับ 1) ไข่ไดโนเสาร์ 2) ฟอสซิล 3) อำพัน แล้วจึงกลับไปยังค่ายปลอดภัย ห้ามเข้าค่ายก่อนเก็บตัวอย่างครบ","difficulty":5,"timeLimit":90},{"id":18,"start":3,"goal":36,"obstacles":[1,2,4,5,6,7,19,20,25,37,38,42],"solution":["D","D","D","D","R","R","R","R","U","U","U","L","L","L","L","L","L","D","D","D","D"],"checkpoints":[31,35,14],"checkpointTypes":["egg","fossil","amber"],"dinosaurs":[16,18,40],"dinoTypes":["triceratops","stegosaurus","trex"],"factIndex":17,"objective":"เด็ก ๆ ช่วยนักสำรวจเก็บตัวอย่างให้ครบตามลำดับ 1) ไข่ไดโนเสาร์ 2) ฟอสซิล 3) อำพัน แล้วจึงกลับไปยังค่ายปลอดภัย ห้ามเข้าค่ายก่อนเก็บตัวอย่างครบ","difficulty":5,"timeLimit":90},{"id":19,"start":37,"goal":3,"obstacles":[1,2,6,7,8,14,15,18,21,22,28,36,41],"solution":["U","U","U","U","R","R","R","R","D","D","D","L","L","L","U","U","U","U"],"checkpoints":[9,13,34],"checkpointTypes":["egg","fossil","amber"],"dinosaurs":[29,35,38],"dinoTypes":["stegosaurus","trex","raptor"],"factIndex":18,"objective":"เด็ก ๆ ช่วยนักสำรวจเก็บตัวอย่างให้ครบตามลำดับ 1) ไข่ไดโนเสาร์ 2) ฟอสซิล 3) อำพัน แล้วจึงกลับไปยังค่ายปลอดภัย ห้ามเข้าค่ายก่อนเก็บตัวอย่างครบ","difficulty":5,"timeLimit":90},{"id":20,"start":7,"goal":12,"obstacles":[2,3,4,6,9,13,15,18,30,35],"solution":["D","D","D","L","L","L","L","L","L","D","D","R","R","R","R","U","U","U","U"],"checkpoints":[28,22,36],"checkpointTypes":["egg","fossil","amber"],"dinosaurs":[16,20,31],"dinoTypes":["trex","raptor","triceratops"],"factIndex":19,"objective":"เด็ก ๆ ช่วยนักสำรวจเก็บตัวอย่างให้ครบตามลำดับ 1) ไข่ไดโนเสาร์ 2) ฟอสซิล 3) อำพัน แล้วจึงกลับไปยังค่ายปลอดภัย ห้ามเข้าค่ายก่อนเก็บตัวอย่างครบ","difficulty":5,"timeLimit":90}];
-const SCIENCE=[{"title": "ไดโนเสาร์สูญพันธุ์เพราะอะไร?", "text": "หลักฐานจำนวนมากชี้ว่า เมื่อประมาณ 66 ล้านปีก่อน อุกกาบาตขนาดใหญ่ชนโลก ฝุ่นและละอองลอยขึ้นปกคลุมบรรยากาศ ทำให้แสงอาทิตย์ลดลง อากาศเปลี่ยน และห่วงโซ่อาหารเสียสมดุล", "word": "บรรยากาศ = ชั้นของก๊าซที่ห่อหุ้มโลก"}, {"title": "ภูเขาไฟมีส่วนด้วยหรือไม่?", "text": "ช่วงใกล้เคียงกันมีภูเขาไฟขนาดใหญ่ปะทุเป็นเวลานาน ปล่อยก๊าซและฝุ่นจำนวนมาก นักวิทยาศาสตร์คิดว่าเหตุการณ์นี้อาจทำให้ภูมิอากาศเปลี่ยนแปลงรุนแรงขึ้น", "word": "ภูมิอากาศ = ลักษณะอากาศเฉลี่ยในระยะยาว"}, {"title": "คาร์บอนไดออกไซด์คืออะไร?", "text": "คาร์บอนไดออกไซด์ หรือ CO₂ เป็นก๊าซเรือนกระจกชนิดหนึ่ง สิ่งมีชีวิตปล่อยออกมาจากการหายใจ และกิจกรรมของมนุษย์ เช่น การเผาเชื้อเพลิง ก็เพิ่มก๊าซนี้ในอากาศ", "word": "CO₂ อ่านว่า ซี-โอ-ทู"}, {"title": "ออกซิเจนสำคัญอย่างไร?", "text": "ออกซิเจน หรือ O₂ เป็นก๊าซที่มนุษย์และสัตว์ส่วนใหญ่ใช้ในการหายใจ พืชสร้างออกซิเจนระหว่างกระบวนการสังเคราะห์ด้วยแสง", "word": "O₂ อ่านว่า โอ-ทู"}, {"title": "ก๊าซมีเทนคืออะไร?", "text": "มีเทน หรือ CH₄ เป็นก๊าซเรือนกระจก เกิดได้จากพื้นที่ชุ่มน้ำ การย่อยอาหารของสัตว์บางชนิด หลุมฝังกลบ และการผลิตเชื้อเพลิง", "word": "CH₄ อ่านว่า ซี-เอช-โฟร์"}, {"title": "ขยะเกี่ยวข้องกับโลกร้อนอย่างไร?", "text": "ขยะอินทรีย์ที่ถูกฝังรวมกันอาจย่อยสลายและปล่อยก๊าซมีเทน การแยกเศษอาหารไปทำปุ๋ยหมักช่วยลดขยะฝังกลบได้", "word": "ขยะอินทรีย์ = เศษอาหาร ใบไม้ และวัสดุที่ย่อยสลายได้"}, {"title": "รีไซเคิลช่วยโลกได้อย่างไร?", "text": "การรีไซเคิลช่วยลดการใช้วัตถุดิบใหม่ ลดพลังงานในการผลิตบางประเภท และลดปริมาณขยะ แต่ควรเริ่มจาก ลดใช้ และใช้ซ้ำ ก่อนเสมอ", "word": "หลัก 3R: Reduce • Reuse • Recycle"}, {"title": "แยกขยะให้ถูกต้อง", "text": "กระดาษสะอาด ขวดพลาสติกบางชนิด กระป๋องโลหะ และแก้ว สามารถนำไปรีไซเคิลได้เมื่อแยกและทำให้สะอาด ส่วนขยะเปื้อนอาหารควรแยกออก", "word": "ล้าง • ตากให้แห้ง • แยกประเภท"}, {"title": "ทำไมต้องลดพลาสติกใช้ครั้งเดียว?", "text": "พลาสติกใช้ครั้งเดียวบางชิ้นใช้งานเพียงไม่กี่นาที แต่คงอยู่ในสิ่งแวดล้อมได้นาน การพกขวดน้ำ กล่องอาหาร และถุงใช้ซ้ำช่วยลดขยะได้", "word": "ใช้ซ้ำหลายครั้งดีกว่าใช้ครั้งเดียว"}, {"title": "ต้นไม้ช่วยโลกอย่างไร?", "text": "พืชใช้คาร์บอนไดออกไซด์ น้ำ และพลังงานแสงอาทิตย์ในการสร้างอาหาร พร้อมปล่อยออกซิเจน แต่การปลูกต้นไม้ต้องดูแลให้รอดและเหมาะกับพื้นที่", "word": "กระบวนการนี้เรียกว่า การสังเคราะห์ด้วยแสง"}, {"title": "ระบบนิเวศคืออะไร?", "text": "ระบบนิเวศประกอบด้วยสิ่งมีชีวิตและสิ่งไม่มีชีวิตที่สัมพันธ์กัน เช่น พืช สัตว์ น้ำ ดิน และอากาศ เมื่อส่วนหนึ่งเปลี่ยน ส่วนอื่นอาจได้รับผลกระทบ", "word": "ทุกชีวิตเชื่อมโยงกัน"}, {"title": "ห่วงโซ่อาหารสำคัญอย่างไร?", "text": "พืชเป็นผู้ผลิต สัตว์กินพืชกินพืช และสัตว์กินเนื้อกินสัตว์อื่น หากพืชลดลงมาก สัตว์หลายชนิดก็ขาดอาหารตามไปด้วย", "word": "พลังงานเริ่มต้นจากดวงอาทิตย์"}, {"title": "ฟอสซิลบอกอะไรเรา?", "text": "ฟอสซิลคือร่องรอยหรือซากของสิ่งมีชีวิตในอดีต เช่น กระดูก ฟัน รอยเท้า และใบไม้ นักบรรพชีวินวิทยาใช้ฟอสซิลศึกษาชีวิตโบราณ", "word": "นักบรรพชีวินวิทยา = ผู้ศึกษาชีวิตในอดีต"}, {"title": "ไดโนเสาร์ทุกชนิดตัวใหญ่หรือไม่?", "text": "ไม่ใช่ค่ะ ไดโนเสาร์มีทั้งขนาดเล็กและใหญ่ บางชนิดมีขนาดใกล้เคียงไก่ ขณะที่บางชนิดยาวกว่ารถบัสหลายคัน", "word": "ความหลากหลาย = มีหลายแบบ หลายขนาด"}, {"title": "นกเกี่ยวข้องกับไดโนเสาร์อย่างไร?", "text": "หลักฐานจากกระดูกและฟอสซิลขนแสดงว่า นกในปัจจุบันสืบเชื้อสายมาจากไดโนเสาร์กินเนื้อกลุ่มหนึ่ง จึงกล่าวได้ว่านกคือไดโนเสาร์ที่ยังมีชีวิตอยู่", "word": "วิวัฒนาการ = การเปลี่ยนแปลงของสิ่งมีชีวิตหลายชั่วรุ่น"}, {"title": "เราช่วยรักษาโลกได้อย่างไร?", "text": "ปิดไฟเมื่อไม่ใช้ ใช้น้ำอย่างพอดี เดินหรือใช้รถร่วมกันเมื่อทำได้ แยกขยะ ลดของใช้ครั้งเดียว และดูแลต้นไม้ในชุมชน", "word": "การเปลี่ยนเล็ก ๆ หลายคนรวมกันมีพลัง"}, {"title": "พลังงานหมุนเวียนคืออะไร?", "text": "พลังงานแสงอาทิตย์ ลม และน้ำ เป็นแหล่งพลังงานที่เกิดทดแทนได้ตามธรรมชาติ การใช้พลังงานอย่างมีประสิทธิภาพช่วยลดการเผาเชื้อเพลิง", "word": "พลังงานหมุนเวียน = ใช้แล้วเกิดทดแทนได้"}, {"title": "อากาศกับภูมิอากาศต่างกันอย่างไร?", "text": "อากาศคือสิ่งที่เกิดขึ้นวันนี้หรือช่วงสั้น ๆ เช่น ฝนตกหรือร้อน ส่วนภูมิอากาศคือแบบแผนอากาศเฉลี่ยเป็นเวลาหลายสิบปี", "word": "Weather = อากาศ • Climate = ภูมิอากาศ"}, {"title": "ทำไมความหลากหลายทางชีวภาพสำคัญ?", "text": "ความหลากหลายของพืช สัตว์ และจุลินทรีย์ช่วยให้ระบบนิเวศแข็งแรง มีอาหาร ยา น้ำสะอาด และการผสมเกสร", "word": "ความหลากหลายทางชีวภาพ = ความหลากหลายของสิ่งมีชีวิต"}, {"title": "พลเมืองที่ดีของโลก", "text": "เรียนรู้จากหลักฐาน ถามคำถาม ใช้ทรัพยากรอย่างรับผิดชอบ และช่วยกันดูแลธรรมชาติ คือสิ่งที่เด็กทุกคนเริ่มทำได้ตั้งแต่วันนี้", "word": "Be kind. Be curious. Protect our planet."}, {"title": "ชั้นโอโซนช่วยอะไรเรา?", "text": "โอโซนในบรรยากาศชั้นบนช่วยดูดซับรังสีอัลตราไวโอเลตบางส่วนจากดวงอาทิตย์ จึงช่วยปกป้องสิ่งมีชีวิตบนโลก", "word": "O₃ = ก๊าซโอโซน"}, {"title": "ไนโตรเจนคือก๊าซอะไร?", "text": "ไนโตรเจน หรือ N₂ เป็นก๊าซที่มีมากที่สุดในอากาศ พืชต้องใช้ไนโตรเจนเพื่อเจริญเติบโต แต่ต้องได้รับผ่านดินหรือกระบวนการของจุลินทรีย์", "word": "N₂ อ่านว่า เอ็น-ทู"}, {"title": "น้ำหมุนเวียนอย่างไร?", "text": "น้ำระเหยเป็นไอ กลั่นตัวเป็นเมฆ ตกลงมาเป็นฝน และไหลกลับสู่แม่น้ำหรือทะเล กระบวนการนี้เรียกว่า วัฏจักรน้ำ", "word": "ระเหย • กลั่นตัว • ตกลงมา"}, {"title": "ดินเกิดขึ้นได้อย่างไร?", "text": "ดินเกิดจากหินที่ผุพังผสมกับซากสิ่งมีชีวิต ใช้เวลานานมากกว่าจะเกิดเป็นดินที่อุดมสมบูรณ์ เราจึงควรป้องกันการชะล้างหน้าดิน", "word": "หน้าดิน = ชั้นดินบนที่มีธาตุอาหารมาก"}, {"title": "ทำไมป่าไม้สำคัญ?", "text": "ป่าเป็นบ้านของสิ่งมีชีวิต ช่วยรักษาน้ำและดิน ดูดซับคาร์บอนไดออกไซด์ และช่วยปรับอุณหภูมิของพื้นที่", "word": "ป่าไม้เป็นส่วนสำคัญของระบบนิเวศ"}, {"title": "ปะการังเป็นพืชหรือสัตว์?", "text": "ปะการังเป็นสัตว์ขนาดเล็กที่อยู่รวมกันเป็นอาณานิคม แนวปะการังเป็นที่อยู่อาศัยของสัตว์ทะเลจำนวนมาก", "word": "อาณานิคม = สิ่งมีชีวิตจำนวนมากอยู่ร่วมกัน"}, {"title": "ไมโครพลาสติกคืออะไร?", "text": "ไมโครพลาสติกคือชิ้นพลาสติกขนาดเล็กมาก อาจมาจากพลาสติกชิ้นใหญ่ที่แตกตัว จึงควรลดการใช้พลาสติกและจัดการขยะให้ถูกต้อง", "word": "ไมโคร = เล็กมาก"}, {"title": "ทำไมไม่ควรเผาขยะ?", "text": "การเผาขยะกลางแจ้งอาจปล่อยควัน ฝุ่น และสารอันตรายเข้าสู่อากาศ วิธีที่ดีกว่าคือ ลดใช้ แยกขยะ ใช้ซ้ำ และส่งวัสดุที่เหมาะสมไปรีไซเคิล", "word": "อากาศสะอาดดีต่อปอดและสุขภาพ"}, {"title": "พลังงานแสงอาทิตย์ทำงานอย่างไร?", "text": "แผงโซลาร์เซลล์เปลี่ยนพลังงานจากแสงอาทิตย์เป็นพลังงานไฟฟ้า โดยไม่ต้องเผาเชื้อเพลิงขณะผลิตไฟฟ้า", "word": "Solar = แสงอาทิตย์"}, {"title": "ลมสร้างไฟฟ้าได้อย่างไร?", "text": "ลมทำให้ใบพัดกังหันหมุน จากนั้นเครื่องกำเนิดไฟฟ้าจะเปลี่ยนพลังงานการหมุนเป็นไฟฟ้า", "word": "กังหันลมใช้พลังงานการเคลื่อนที่ของอากาศ"}, {"title": "ประหยัดน้ำเริ่มอย่างไร?", "text": "ปิดก๊อกขณะแปรงฟัน ซ่อมก๊อกที่รั่ว ใช้น้ำล้างผักไปรดต้นไม้ และใช้น้ำเท่าที่จำเป็น เป็นวิธีง่าย ๆ ที่เด็กทำได้", "word": "น้ำสะอาดเป็นทรัพยากรที่มีคุณค่า"}, {"title": "สัตว์ใกล้สูญพันธุ์หมายถึงอะไร?", "text": "สัตว์ใกล้สูญพันธุ์คือสัตว์ที่มีจำนวนลดลงมากและเสี่ยงหายไปจากธรรมชาติ การรักษาถิ่นอาศัยช่วยให้สัตว์เหล่านี้มีโอกาสอยู่รอด", "word": "ถิ่นอาศัย = บ้านตามธรรมชาติของสิ่งมีชีวิต"}, {"title": "ชนิดพันธุ์ต่างถิ่นคืออะไร?", "text": "สิ่งมีชีวิตที่ถูกนำไปอยู่ในพื้นที่ใหม่อาจเพิ่มจำนวนจนรบกวนสิ่งมีชีวิตท้องถิ่นได้ เราไม่ควรปล่อยสัตว์เลี้ยงหรือพืชต่างถิ่นลงธรรมชาติ", "word": "ระบบนิเวศต้องการความสมดุล"}, {"title": "การผสมเกสรสำคัญอย่างไร?", "text": "ผึ้ง ผีเสื้อ นก และสัตว์บางชนิดช่วยพาละอองเกสรจากดอกหนึ่งไปยังอีกดอก ทำให้พืชสร้างเมล็ดและผลได้", "word": "ผู้ผสมเกสรช่วยสร้างอาหารให้เรา"}, {"title": "อุณหภูมิโลกสูงขึ้นเพราะอะไร?", "text": "เมื่อก๊าซเรือนกระจกเพิ่มขึ้น ความร้อนบางส่วนจะถูกกักไว้ในบรรยากาศมากขึ้น ทำให้อุณหภูมิเฉลี่ยของโลกสูงขึ้น", "word": "ปรากฏการณ์เรือนกระจกเป็นธรรมชาติ แต่ที่มากเกินไปทำให้โลกอุ่นขึ้น"}, {"title": "น้ำแข็งขั้วโลกละลายมีผลอย่างไร?", "text": "เมื่อน้ำแข็งบนแผ่นดินละลาย น้ำทะเลอาจสูงขึ้นและกระทบพื้นที่ชายฝั่ง รวมถึงสัตว์ที่พึ่งพาน้ำแข็งเป็นถิ่นอาศัย", "word": "ระดับน้ำทะเลเกี่ยวข้องกับภูมิอากาศ"}, {"title": "เราวัดอากาศด้วยอะไร?", "text": "เทอร์โมมิเตอร์ใช้วัดอุณหภูมิ เครื่องวัดฝนใช้วัดปริมาณฝน และเครื่องวัดความเร็วลมใช้วัดลม", "word": "ข้อมูลช่วยให้นักวิทยาศาสตร์เข้าใจอากาศ"}, {"title": "หลักฐานทางวิทยาศาสตร์คืออะไร?", "text": "นักวิทยาศาสตร์สังเกต วัด ทดลอง และเปรียบเทียบข้อมูล ก่อนสรุปคำตอบ ความคิดอาจเปลี่ยนได้เมื่อมีหลักฐานใหม่", "word": "วิทยาศาสตร์เรียนรู้จากหลักฐาน"}, {"title": "เด็กทำโครงงานสิ่งแวดล้อมได้อย่างไร?", "text": "ลองชั่งขยะของห้องเรียนหนึ่งสัปดาห์ แยกประเภท และวางแผนลดขยะ จากนั้นเปรียบเทียบผลก่อนและหลัง", "word": "ตั้งคำถาม • เก็บข้อมูล • ลงมือแก้ไข"}, {"title": "ทุกก้าวช่วยโลกได้", "text": "การพกขวดน้ำ ใช้กระดาษสองหน้า ปิดไฟ แยกขยะ และชวนคนรอบตัวร่วมมือ เป็นก้าวเล็ก ๆ ที่เกิดผลได้จริงเมื่อทำต่อเนื่อง", "word": "Every Step Makes You Better."}];
+const MISSIONS=[{"id":1,"chapter":"YOUNG EXPLORER","start":22,"goal":5,"obstacles":[15,31,38,4],"solution":["R","R","R","R","U","U","U"],"checkpoints":[24,19],"checkpointTypes":["egg","fossil"],"dinosaurs":[],"dinoTypes":[],"factIndex":0,"objective":"สำรวจรังไข่และเก็บตัวอย่างให้ครบก่อนกลับฐาน","difficulty":2,"timeLimit":999},{"id":2,"chapter":"YOUNG EXPLORER","start":8,"goal":33,"obstacles":[11,26,12,13],"solution":["D","D","D","R","R","R","R"],"checkpoints":[22,31],"checkpointTypes":["egg","fossil"],"dinosaurs":[],"dinoTypes":[],"factIndex":1,"objective":"ตามหาร่องรอยฟอสซิลตามเส้นทางสำรวจ","difficulty":2,"timeLimit":999},{"id":3,"chapter":"YOUNG EXPLORER","start":40,"goal":15,"obstacles":[33,14,5,8],"solution":["L","L","L","L","U","U","U"],"checkpoints":[38,29],"checkpointTypes":["egg","fossil"],"dinosaurs":[],"dinoTypes":[],"factIndex":2,"objective":"เก็บตัวอย่างพืชโบราณและเดินอ้อมแนวหิน","difficulty":2,"timeLimit":999},{"id":4,"chapter":"YOUNG EXPLORER","start":22,"goal":5,"obstacles":[7,20,23,34,30],"solution":["U","U","U","R","R","R","R"],"checkpoints":[8,3],"checkpointTypes":["egg","fossil"],"dinosaurs":[6],"dinoTypes":["triceratops"],"factIndex":3,"objective":"สำรวจแหล่งน้ำโดยเลือกเส้นทางที่ปลอดภัย","difficulty":2,"timeLimit":999},{"id":5,"chapter":"YOUNG EXPLORER","start":15,"goal":34,"obstacles":[30,7,1,26,42],"solution":["R","R","R","R","R","D","D"],"checkpoints":[17,20],"checkpointTypes":["egg","fossil"],"dinosaurs":[],"dinoTypes":[],"factIndex":4,"objective":"สังเกตลูกไดโนเสาร์และบันทึกข้อมูลสองจุด","difficulty":2,"timeLimit":999},{"id":6,"chapter":"SCIENCE DISCOVERY","start":14,"goal":39,"obstacles":[34,2,38,4,18],"solution":["D","D","D","D","L","L","L"],"checkpoints":[28,41],"checkpointTypes":["egg","fossil"],"dinosaurs":[],"dinoTypes":[],"factIndex":5,"objective":"เก็บตัวอย่างหินจากพื้นที่สองระดับ","difficulty":3,"timeLimit":999},{"id":7,"chapter":"SCIENCE DISCOVERY","start":34,"goal":3,"obstacles":[22,36,39,26,14],"solution":["U","U","U","U","L","L","L"],"checkpoints":[20,5],"checkpointTypes":["egg","fossil"],"dinosaurs":[],"dinoTypes":[],"factIndex":6,"objective":"สำรวจพื้นที่ภูเขาไฟโดยใช้คำสั่งทำซ้ำ","difficulty":3,"timeLimit":999},{"id":8,"chapter":"SCIENCE DISCOVERY","start":21,"goal":30,"obstacles":[9,6,33,32,42,13],"solution":["L","L","L","L","L","D","D"],"checkpoints":[19,16],"checkpointTypes":["egg","fossil"],"dinosaurs":[8],"dinoTypes":["triceratops"],"factIndex":7,"objective":"ค้นหาแหล่งพลังงานจากดวงอาทิตย์","difficulty":3,"timeLimit":999},{"id":9,"chapter":"SCIENCE DISCOVERY","start":1,"goal":13,"obstacles":[27,24,41,40,42,6],"solution":["R","R","R","D","D","R","R","U"],"checkpoints":[4,19],"checkpointTypes":["egg","fossil"],"dinosaurs":[],"dinoTypes":[],"factIndex":8,"objective":"ตรวจสอบสถานีโซลาร์เซลล์และกลับฐาน","difficulty":3,"timeLimit":999},{"id":10,"chapter":"SCIENCE DISCOVERY","start":7,"goal":33,"obstacles":[34,22,16,41,30,10],"solution":["D","D","L","L","L","D","D","R"],"checkpoints":[20,25],"checkpointTypes":["egg","fossil"],"dinosaurs":[],"dinoTypes":[],"factIndex":9,"objective":"ช่วยแยกวัสดุสองชนิดเพื่อนำไปรีไซเคิล","difficulty":3,"timeLimit":999},{"id":11,"chapter":"EARTH & NATURE","start":38,"goal":12,"obstacles":[16,28,18,7,15,42],"solution":["U","U","R","R","R","U","U","L"],"checkpoints":[25,20],"checkpointTypes":["egg","fossil"],"dinosaurs":[],"dinoTypes":[],"factIndex":10,"objective":"สำรวจความสัมพันธ์ในห่วงโซ่อาหาร","difficulty":3,"timeLimit":999},{"id":12,"chapter":"EARTH & NATURE","start":19,"goal":39,"obstacles":[40,25,28,15,35,14,31],"solution":["L","L","L","D","D","D","R","R"],"checkpoints":[16,37],"checkpointTypes":["egg","fossil"],"dinosaurs":[33],"dinoTypes":["triceratops"],"factIndex":11,"objective":"บันทึกสิ่งมีชีวิตจากสองพื้นที่ในระบบนิเวศ","difficulty":3,"timeLimit":999},{"id":13,"chapter":"EARTH & NATURE","start":22,"goal":12,"obstacles":[2,27,1,25,41,18,13],"solution":["R","R","U","U","U","R","R","D"],"checkpoints":[17,4],"checkpointTypes":["egg","fossil"],"dinosaurs":[],"dinoTypes":[],"factIndex":12,"objective":"ค้นหาหลักฐานการเปลี่ยนแปลงครั้งใหญ่ของโลก","difficulty":3,"timeLimit":999},{"id":14,"chapter":"EARTH & NATURE","start":4,"goal":14,"obstacles":[22,8,15,31,9,30,29],"solution":["D","D","D","R","R","U","U","R"],"checkpoints":[25,20],"checkpointTypes":["egg","fossil"],"dinosaurs":[],"dinoTypes":[],"factIndex":13,"objective":"ศึกษาร่องรอยสิ่งมีชีวิตที่สูญพันธุ์","difficulty":3,"timeLimit":999},{"id":15,"chapter":"EARTH & NATURE","start":34,"goal":24,"obstacles":[26,16,33,4,23,39,14],"solution":["U","U","U","L","L","D","D","L"],"checkpoints":[13,18],"checkpointTypes":["egg","fossil"],"dinosaurs":[],"dinoTypes":[],"factIndex":14,"objective":"สำรวจความหลากหลายของสิ่งมีชีวิตหลายพื้นที่","difficulty":3,"timeLimit":999},{"id":16,"chapter":"FUTURE SCIENTIST","start":1,"goal":24,"obstacles":[30,6,35,31,9,34,10,26],"solution":["R","R","R","R","D","D","L","L","D"],"checkpoints":[4,19],"checkpointTypes":["egg","fossil"],"dinosaurs":[32],"dinoTypes":["trex"],"factIndex":15,"objective":"เก็บตัวอย่างพร้อมบันทึกข้อมูลอย่างเป็นลำดับ","difficulty":4,"timeLimit":999},{"id":17,"chapter":"FUTURE SCIENTIST","start":4,"goal":15,"obstacles":[21,7,41,8,17,37,40,24],"solution":["D","D","D","D","L","L","U","U","L"],"checkpoints":[25,30],"checkpointTypes":["egg","fossil"],"dinosaurs":[],"dinoTypes":[],"factIndex":16,"objective":"นำข้อมูลกลับไปวิเคราะห์โดยเลือกเส้นทางสั้น","difficulty":4,"timeLimit":999},{"id":18,"chapter":"FUTURE SCIENTIST","start":40,"goal":17,"obstacles":[12,10,4,27,42,41,30,1],"solution":["L","L","L","L","U","U","R","R","U"],"checkpoints":[37,22],"checkpointTypes":["egg","fossil"],"dinosaurs":[14],"dinoTypes":["trex"],"factIndex":17,"objective":"ช่วยดูแลพื้นที่ธรรมชาติและหลบแนวหิน","difficulty":4,"timeLimit":999},{"id":19,"chapter":"FUTURE SCIENTIST","start":38,"goal":27,"obstacles":[25,6,33,35,23,30,34,37],"solution":["U","U","U","U","R","R","D","D","R"],"checkpoints":[17,12],"checkpointTypes":["egg","fossil"],"dinosaurs":[20],"dinoTypes":["trex"],"factIndex":18,"objective":"ใช้ทักษะทั้งหมดทำภารกิจนักวิทยาศาสตร์","difficulty":4,"timeLimit":999},{"id":20,"chapter":"THE GREAT JOURNEY","start":30,"goal":5,"obstacles":[22,9,8,26,36,24,27,19,3],"solution":["R","R","R","R","R","U","U","U","L","L","U"],"checkpoints":[34,14],"checkpointTypes":["egg","fossil"],"dinosaurs":[18],"dinoTypes":["trex"],"factIndex":19,"objective":"รวบรวมหลักฐานสำคัญและเดินทางกลับค่ายเพื่อฉลองความสำเร็จ","difficulty":4,"timeLimit":999}];
+const SCIENCE=[{"title":"ไข่ของสัตว์เลื้อยคลาน","text":"ไดโนเสาร์ส่วนใหญ่วางไข่ เปลือกไข่ช่วยปกป้องตัวอ่อนระหว่างการเจริญเติบโต","word":"ตัวอ่อน = สิ่งมีชีวิตระยะแรก"},{"title":"ฟอสซิลบอกเล่าอดีต","text":"ฟอสซิลคือร่องรอยหรือซากสิ่งมีชีวิตในอดีตที่เก็บรักษาอยู่ในชั้นหิน นักวิทยาศาสตร์ใช้ฟอสซิลศึกษาประวัติของโลก","word":"บรรพชีวินวิทยา = วิชาที่ศึกษาสิ่งมีชีวิตในอดีต"},{"title":"พืชสร้างอาหารได้","text":"พืชใช้แสงอาทิตย์ น้ำ และก๊าซคาร์บอนไดออกไซด์สร้างอาหาร พร้อมปล่อยออกซิเจนออกมา กระบวนการนี้เรียกว่าการสังเคราะห์แสง","word":"สังเคราะห์แสง"},{"title":"น้ำหมุนเวียนอยู่เสมอ","text":"น้ำระเหยเป็นไอ รวมตัวเป็นเมฆ แล้วตกกลับลงมาเป็นฝน เรียกว่าวัฏจักรน้ำ","word":"วัฏจักร = การหมุนเวียนซ้ำ"},{"title":"สัตว์ดูแลลูกแตกต่างกัน","text":"สัตว์บางชนิดเฝ้ารัง หาอาหาร หรือปกป้องลูกอ่อน พฤติกรรมเหล่านี้ช่วยเพิ่มโอกาสรอดชีวิต","word":"พฤติกรรมการดูแลลูก"},{"title":"หินเกิดได้หลายแบบ","text":"หินอัคนีเกิดจากหินหลอมเหลวเย็นตัว หินตะกอนเกิดจากเศษตะกอนทับถม และหินแปรเกิดจากความร้อนกับความดัน","word":"วัฏจักรหิน"},{"title":"ใต้โลกมีความร้อน","text":"หินหลอมเหลวใต้ผิวโลกเรียกว่าแมกมา เมื่อพุ่งออกมาบนพื้นผิวจึงเรียกว่าลาวา","word":"แมกมาอยู่ใต้ดิน ลาวาอยู่บนผิวโลก"},{"title":"ดวงอาทิตย์ให้พลังงาน","text":"แสงและความร้อนจากดวงอาทิตย์ช่วยให้พืชเติบโต ทำให้น้ำระเหย และเป็นพลังงานสำคัญของสิ่งมีชีวิตบนโลก","word":"พลังงานแสงอาทิตย์"},{"title":"โซลาร์เซลล์ผลิตไฟฟ้า","text":"แผงโซลาร์เซลล์เปลี่ยนพลังงานจากแสงอาทิตย์เป็นพลังงานไฟฟ้า โดยไม่ต้องเผาเชื้อเพลิงในขณะผลิตไฟฟ้า","word":"พลังงานสะอาด"},{"title":"แยกขยะก่อนรีไซเคิล","text":"การแยกกระดาษ พลาสติก โลหะ และขยะอินทรีย์ ช่วยให้วัสดุที่ยังมีประโยชน์ถูกนำกลับมาใช้ใหม่ได้ง่ายขึ้น","word":"ลดใช้ • ใช้ซ้ำ • รีไซเคิล"},{"title":"ห่วงโซ่อาหาร","text":"พืชเป็นผู้ผลิต สัตว์กินพืชเป็นผู้บริโภค และสัตว์นักล่ากินสัตว์อื่น พลังงานจึงถ่ายทอดต่อกันเป็นห่วงโซ่อาหาร","word":"ผู้ผลิตและผู้บริโภค"},{"title":"ทุกชีวิตเชื่อมโยงกัน","text":"พืช สัตว์ น้ำ ดิน อากาศ และแสงอาทิตย์มีความสัมพันธ์กันเป็นระบบนิเวศ เมื่อส่วนหนึ่งเปลี่ยน ส่วนอื่นอาจได้รับผลกระทบ","word":"ระบบนิเวศ"},{"title":"อุกกาบาตกับโลก","text":"หลักฐานทางธรณีวิทยาชี้ว่าอุกกาบาตขนาดใหญ่เป็นหนึ่งในปัจจัยสำคัญที่เกี่ยวข้องกับการสูญพันธุ์ครั้งใหญ่เมื่อประมาณ 66 ล้านปีก่อน","word":"หลักฐานทางธรณีวิทยา"},{"title":"การสูญพันธุ์","text":"สิ่งมีชีวิตสูญพันธุ์เมื่อไม่มีสมาชิกของชนิดนั้นเหลืออยู่บนโลก การเปลี่ยนแปลงสิ่งแวดล้อมอย่างรวดเร็วอาจทำให้สิ่งมีชีวิตปรับตัวไม่ทัน","word":"สูญพันธุ์"},{"title":"ความหลากหลายช่วยธรรมชาติ","text":"พื้นที่ที่มีสิ่งมีชีวิตหลายชนิดมักมีความสัมพันธ์หลายรูปแบบ ความหลากหลายทางชีวภาพจึงสำคัญต่อความสมดุลของธรรมชาติ","word":"ความหลากหลายทางชีวภาพ"},{"title":"นักวิทยาศาสตร์เก็บตัวอย่าง","text":"การเก็บตัวอย่างต้องบันทึกสถานที่ เวลา และสิ่งที่สังเกตพบอย่างเป็นระบบ เพื่อให้ข้อมูลตรวจสอบและเปรียบเทียบได้","word":"ข้อมูลและหลักฐาน"},{"title":"ข้อมูลช่วยตอบคำถาม","text":"นักวิทยาศาสตร์จัดหมวดหมู่ วัด เปรียบเทียบ และมองหารูปแบบในข้อมูล ก่อนสรุปคำตอบ","word":"วิเคราะห์ข้อมูล"},{"title":"การอนุรักษ์เริ่มจากเรา","text":"การประหยัดน้ำ ปิดไฟเมื่อไม่ใช้ ลดพลาสติก และไม่รบกวนสัตว์ป่า เป็นการดูแลธรรมชาติที่เด็กทำได้","word":"อนุรักษ์"},{"title":"วิทยาศาสตร์เริ่มจากคำถาม","text":"การสังเกตอย่างตั้งใจทำให้เราเกิดคำถาม จากนั้นจึงคาดคะเน ทดลอง เก็บข้อมูล และตรวจสอบคำตอบ","word":"สังเกต • ตั้งคำถาม • ทดลอง"},{"title":"ทุกก้าวคือการเรียนรู้","text":"Coding ช่วยฝึกคิดเป็นลำดับ ส่วนวิทยาศาสตร์ช่วยให้เราตั้งคำถามและค้นหาคำตอบ เมื่อใช้ร่วมกัน เราสามารถเข้าใจและสร้างสิ่งใหม่ได้","word":"Every Step Makes You Better."}];
 let order=[],current=0,program=[],showNumbers=true,speed=330,dragIndex=null,timerId=null,timeLeft=0,timerStarted=false,collected=[];
 const labels={U:"ขึ้น",D:"ลง",L:"ซ้าย",R:"ขวา"};
 const directionIcon={U:"arrow-u",D:"arrow-d",L:"arrow-l",R:"arrow-r"};
@@ -209,6 +327,7 @@ const home=document.getElementById("home"),game=document.getElementById("game"),
 const AUDIO_FILES={music:"assets/audio/world3_jungle_adventure.wav",step:"assets/audio/step.wav",collect:"assets/audio/collect.wav",success:"assets/audio/success.wav",fail:"assets/audio/fail.wav",click:"assets/audio/click.wav"};
 let soundEnabled=true;
 const bgMusic=new Audio(AUDIO_FILES.music);bgMusic.loop=true;bgMusic.volume=.24;bgMusic.preload="auto";
+const finaleMusic=new Audio("assets/audio/world3_finale_inspiration.wav");finaleMusic.loop=false;finaleMusic.volume=.72;finaleMusic.preload="auto";
 const sfxPool={};
 function playSfx(name,volume=1){
  if(!soundEnabled)return;
@@ -218,7 +337,7 @@ function playSfx(name,volume=1){
  }catch(e){}
 }
 function startMusic(){if(!soundEnabled)return;bgMusic.play().catch(()=>{});}
-function stopMusic(){bgMusic.pause();}
+function stopMusic(){bgMusic.pause();finaleMusic.pause();}
 function setSoundEnabled(on){
  soundEnabled=on;
  const btn=document.getElementById("musicBtn"),label=btn?.querySelector(".music-label");
@@ -239,7 +358,7 @@ document.addEventListener("visibilitychange",()=>{if(document.hidden)stopMusic()
 function shuffle(a){for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a}
 function startGame(){
  playSfx("click",.55);startMusic();
- order=shuffle([...VERIFIED_MISSION_INDEXES]);
+ order=[...VERIFIED_MISSION_INDEXES];
  if(!order.length)return alert("ไม่พบด่านที่ผ่านการตรวจสอบ กรุณาเปิดไฟล์ใหม่ค่ะ");
  current=0;program=[];collected=[];
  home.classList.add("hidden");game.classList.remove("hidden");
@@ -271,13 +390,11 @@ function playSampleSound(index){
  }catch(e){}
 }
 
-function checkpointName(type){
- return type==="egg"?"ไข่ไดโนเสาร์":type==="fossil"?"ฟอสซิล":"ผลึกแร่";
-}
+function checkpointName(type){ return type==="egg"?"จุดสำรวจที่ 1":"จุดสำรวจที่ 2"; }
 function missionObjectiveText(){
  const x=m();
- const stars="★".repeat(x.difficulty||4)+"☆".repeat(5-(x.difficulty||4));
- return `ภารกิจ: เก็บตัวอย่างตามลำดับ 1) ไข่ไดโนเสาร์ → 2) ฟอสซิล → 3) อำพัน แล้วจึงกลับค่ายปลอดภัย ห้ามเข้าค่ายก่อนเก็บครบ | ระดับ ${stars} | เวลา ${x.timeLimit} วินาที`;
+ const stars="★".repeat(x.difficulty||1)+"☆".repeat(5-(x.difficulty||1));
+ return `ภารกิจนักสำรวจ: ${x.objective} | ระดับ ${stars} | ไม่มีการจับเวลา`;
 }
 function resetTimer(){
  clearInterval(timerId);
@@ -315,36 +432,12 @@ function playSoftTick(isFinalTen=false){
   }
 }
 
-function startTimer(){
- if(timerStarted)return;
- timerStarted=true;
- getCountdownAudio();
- timerId=setInterval(()=>{
-  timeLeft--;
-  playSoftTick(timeLeft<=10);
-  updateTimerDisplay();
-  if(timeLeft<=0){
-   clearInterval(timerId);
-   timerId=null;
-   timerStarted=false;
-   fail("หมดเวลาแล้วค่ะ ลองวางแผนใหม่และใช้บล็อกทำซ้ำเพื่อลดจำนวนคำสั่ง");
-  }
- },1000);
-}
+function startTimer(){ timerStarted=false; timeLeft=999; updateTimerDisplay(); }
 function updateTimerDisplay(){
  const el=document.getElementById("timerText");
  const box=document.getElementById("timerBox");
- const hand=document.getElementById("clockHand");
- if(!el||!box)return;
- const safe=Math.max(timeLeft,0);
- const minutes=String(Math.floor(safe/60)).padStart(2,"0");
- const seconds=String(safe%60).padStart(2,"0");
- el.textContent=`${minutes}:${seconds}`;
- box.classList.toggle("danger",safe<=10&&timerStarted);
- if(hand){
-  const total=Math.max(m().timeLimit,1);
-  hand.style.transform=`translateX(-50%) rotate(${((total-safe)/total)*360}deg)`;
- }
+ if(el)el.textContent="สำรวจสบาย ๆ";
+ if(box)box.classList.remove("danger");
 }
 
 function validateMissionData(ms){
@@ -434,8 +527,8 @@ function render(pos=m().start){
 
   board.appendChild(c);
  }
- document.getElementById("missionTitle").textContent=`FINAL DINO CHALLENGE • ด่านสุ่ม ${String(m().id).padStart(2,"0")}`;
- document.getElementById("progress").textContent=`ด่านรหัส ${String(m().id).padStart(2,"0")} / 20`;
+ document.getElementById("missionTitle").textContent=`${m().chapter} • ภารกิจ ${String(m().id).padStart(2,"0")}`;
+ document.getElementById("progress").textContent=`ภารกิจ ${String(m().id).padStart(2,"0")} / 20`;
  document.getElementById("missionObjective").innerHTML=missionObjectiveText();
  renderProgram();
 }
@@ -501,7 +594,7 @@ async function run(){
   if(timeLeft<=0)return;
   await new Promise(r=>setTimeout(r,speed));
   const n=nextPos(pos,cmd);
-  if(n<0||m().obstacles.includes(n)||m().dinosaurs.includes(n))return fail("นักสำรวจชนสิ่งกีดขวางหรือเข้าใกล้ไดโนเสาร์เกินไป ลองวางแผนใหม่ค่ะ");
+  if(n<0||m().obstacles.includes(n)||m().dinosaurs.includes(n))return fail("เส้นทางนี้มีสิ่งกีดขวาง ลองเปลี่ยนคำสั่งอีกนิดนะคะ");
   pos=n;
   playSfx("step",.38);
   const expectedIndex=collected.length;
@@ -512,7 +605,7 @@ async function run(){
    render(pos);
    showCollectEffect(pos,expectedIndex);
   }else if(m().checkpoints.includes(pos)&&!collected.includes(pos)){
-   return fail("ผ่านจุดเก็บตัวอย่างผิดลำดับค่ะ ต้องเก็บหมายเลข 1 → 2 → 3 ตามลำดับ");
+   return fail("พบจุดสำรวจแล้ว แต่เราต้องบันทึกตามหมายเลข 1 → 2 นะคะ");
   }
   render(pos);
  }
@@ -520,9 +613,9 @@ async function run(){
   clearInterval(timerId);timerId=null;timerStarted=false;
   success();
  }else if(pos===m().goal){
-  fail("ถึงค่ายแล้ว แต่ยังเก็บตัวอย่างไม่ครบค่ะ ต้องเก็บไข่ ฟอสซิล และอำพันตามลำดับก่อนกลับค่าย");
+  fail("ถึงฐานแล้ว แต่ยังมีจุดสำรวจที่ไม่ได้บันทึก ลองกลับไปเก็บข้อมูลให้ครบค่ะ");
  }else{
-  fail("นักสำรวจยังไปไม่ถึงค่าย ลองตรวจลำดับ จุดเลี้ยว และบล็อกทำซ้ำอีกครั้งค่ะ");
+  fail("เกือบสำเร็จแล้วค่ะ ลองตรวจจุดเลี้ยวและคำสั่งอีกครั้ง");
  }
 }
 function modal(content){const box=document.getElementById("modalbox");box.innerHTML=content;document.getElementById("modal").classList.remove("hidden")}
@@ -563,32 +656,70 @@ function scienceCategory(title){
 function success(){
  playSfx("success",.75);
  playScienceDing();
- const fact=SCIENCE[Math.floor(Math.random()*SCIENCE.length)];
+ const fact=SCIENCE[m().factIndex];
  const category=scienceCategory(fact.title);
+ const isFinal=m().id===20;
  const box=document.getElementById("modalbox");
  box.classList.add("success-box");
+ if(isFinal){ showGrandFinale(); return; }
  modal(`<div class="science-modal">
  <div class="success-stars"><img src="assets/ui/star.png" alt="ดาว"><img src="assets/ui/star.png" alt="ดาว"><img src="assets/ui/star.png" alt="ดาว"></div>
- <div class="success-heroes"><img src="assets/world3/characters/explorer/explorer_static.png" alt="นักสำรวจ"><img src="assets/world3/camp/camp_tent.png" alt="ค่ายปลอดภัย"><img src="assets/world3/dinosaurs/dinosaur_trex_boss.png" alt="ไดโนเสาร์"></div><h1 class="success-title">MISSION COMPLETE!</h1>
- <p><b>ยอดเยี่ยมมาก!</b> เก็บตัวอย่างครบตามลำดับและกลับถึงค่ายปลอดภัย เหลือเวลา <b>${timeLeft} วินาที</b></p>
- <div class="science-heading">
-   <span class="main"><img class="ui-icon inline-icon" src="assets/ui/science.png" alt=""> วิทยาศาสตร์น่ารู้</span>
-   <span class="grade">สำหรับเด็กประถมศึกษาปีที่ 1–6</span>
- </div>
+ <div class="success-heroes"><img src="assets/world3/characters/explorer/explorer_static.png" alt="นักสำรวจ"><img src="assets/world3/camp/camp_tent.png" alt="ค่าย"><img src="assets/world3/dinosaurs/dinosaur_triceratops.png" alt="ไดโนเสาร์"></div>
+ <h1 class="success-title">ค้นพบสำเร็จ!</h1>
+ <p><b>ยอดเยี่ยมมาก นักสำรวจตัวน้อย</b> คุณวางแผนเส้นทาง เก็บข้อมูล และกลับถึงฐานแล้ว</p>
+ <div class="science-heading"><span class="main"><img class="ui-icon inline-icon" src="assets/ui/science.png" alt=""> SCIENCE DISCOVERY</span><span class="grade">ความรู้วิทยาศาสตร์จากภารกิจที่ ${m().id}</span></div>
  <div class="science-category">หัวข้อ: ${category}</div>
- <div class="science-card-static">
-   <h3>${fact.title}</h3>
-   <p>${fact.text}</p>
-   <div class="science-word"><img class="ui-icon inline-icon" src="assets/ui/book.png" alt=""> คำสำคัญ: ${fact.word}</div>
- </div>
- <div class="science-actions">
-   <button onclick="nextRandomMission()"><img class="ui-icon" src="assets/ui/shuffle.png" alt=""> สุ่มภารกิจใหม่</button>
-   <button onclick="closeModal()" style="background:#2cab55">ดูโปรแกรมของฉัน</button>
- </div>
+ <div class="science-card-static"><h3>${fact.title}</h3><p>${fact.text}</p><div class="science-word"><img class="ui-icon inline-icon" src="assets/ui/book.png" alt=""> คำสำคัญ: ${fact.word}</div></div>
+ <div class="science-actions"><button onclick="nextMission()">ไปภารกิจถัดไป</button><button onclick="closeModal()" style="background:#2cab55">ดูโปรแกรมของฉัน</button></div>
  </div>`);
 }
+function showGrandFinale(){
+ stopMusic();
+ try{finaleMusic.currentTime=0;if(soundEnabled)finaleMusic.play().catch(()=>{});}catch(e){}
+ const slides=[
+  {text:"MISSION ACCOMPLISHED",hold:5000},
+  {text:"วันนี้...\nคุณอาจเพิ่งเรียนรู้การเขียนโค้ดเพียงไม่กี่บรรทัด",hold:7000},
+  {text:"แต่ทุกคำสั่งที่คุณวาง\nกำลังฝึกการคิดอย่างเป็นระบบ\nการวางแผน และการแก้ปัญหา",hold:8500},
+  {text:"วิทยาศาสตร์เริ่มต้นจากการสังเกต\nการตั้งคำถาม การทดลอง\nและการค้นหาคำตอบ",hold:8000},
+  {text:"คุณได้ค้นพบโลกของไดโนเสาร์ ฟอสซิล และพืช\nพลังงานสะอาด ระบบนิเวศ\nและการดูแลโลก",hold:8500},
+  {text:"เมื่อ Coding จับมือกับ Science\nความอยากรู้อยากเห็นเล็ก ๆ ในวันนี้\nอาจกลายเป็นการค้นพบที่ยิ่งใหญ่ในวันข้างหน้า",hold:9000},
+  {text:"อย่าหยุดถาม • อย่าหยุดคิด\nอย่าหยุดเรียนรู้",hold:7000}
+ ];
+ const sparks=Array.from({length:18},(_,i)=>`<span class="finale-spark" style="left:${(i*37)%96}%;bottom:${(i*19)%35}px;animation-delay:${(i%7)*.35}s">${i%3===0?'★':'✦'}</span>`).join('');
+ modal(`<div class="finale-wrap">${sparks}<div class="finale-art"><img src="assets/world3/characters/explorer/explorer_static.png" alt="นักสำรวจ"><img src="assets/world3/camp/camp_tent.png" alt="ค่าย"><img src="assets/world3/dinosaurs/dinosaur_triceratops.png" alt="ไดโนเสาร์"></div><div id="finaleText" class="finale-text"></div><div id="finaleLogo" class="finale-logo hidden"><div>STEP UP CODING STUDIO</div><strong>Every Step Makes You Better.</strong><p>การผจญภัยครั้งนี้จบลงแล้ว...<br>แต่การเรียนรู้ของคุณเพิ่งเริ่มต้น</p></div><button id="finaleNextBtn" class="finale-btn">ข้ามฉากจบ</button></div>`);
+ let i=0,finaleTimer=null,finished=false;
+ const text=document.getElementById("finaleText"),btn=document.getElementById("finaleNextBtn"),logo=document.getElementById("finaleLogo");
+ const showLogo=()=>{
+  if(finished)return; finished=true;
+  if(finaleTimer)clearTimeout(finaleTimer);
+  text.classList.remove("show");
+  setTimeout(()=>{
+   text.classList.add("hidden");
+   logo.classList.remove("hidden");
+   btn.textContent="กลับหน้าแรก";
+   btn.onclick=()=>{finaleMusic.pause();restart();};
+  },1500);
+ };
+ const showNext=()=>{
+  if(i>=slides.length){finaleTimer=setTimeout(showLogo,2200);return;}
+  const slide=slides[i++];
+  text.classList.remove("show");
+  finaleTimer=setTimeout(()=>{
+   text.textContent=slide.text;
+   text.style.whiteSpace="pre-line";
+   text.classList.add("show");
+   finaleTimer=setTimeout(()=>{
+    text.classList.remove("show");
+    finaleTimer=setTimeout(showNext,1500);
+   },slide.hold);
+  },900);
+ };
+ finaleTimer=setTimeout(showNext,2500);
+ btn.onclick=showLogo;
+}
+
 function nextRandomMission(){closeModal();randomMission()}
-function nextMission(){closeModal();current=(current+1)%order.length;program=[];collected=[];render();resetTimer()}
+function nextMission(){closeModal();current=Math.min(current+1,order.length-1);program=[];collected=[];render();resetTimer()}
 function restart(){closeModal();startGame()}
 document.getElementById("startBtn").onclick=startGame;
 document.getElementById("randomBtn").onclick=randomMission;
@@ -609,5 +740,5 @@ document.getElementById("musicBtn").onclick=()=>setSoundEnabled(!soundEnabled);
 
 document.addEventListener("click",e=>{if(e.target.closest("button")&&!e.target.closest("#musicBtn"))playSfx("click",.28)});
 </script>
-<div style="display:none" data-build="WORLD3-V24-IPAD-AUDIO-READY"></div>
+<div style="display:none" data-build="WORLD3-V31-BALANCED-CHALLENGE-CINEMATIC-FINALE"></div>
 </body></html>
